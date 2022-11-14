@@ -1,8 +1,8 @@
 # ---------------- #
 #   Main Configs   #
 # ---------------- #
-baseurl:
-url: catundercar.github.io
+baseurl: https://catundercar.github.io/
+url: https://catundercar.github.io/
 date_format: "ordinal"
 title: travel
 subtitle: "道阻且长，行则将至"
