@@ -27,7 +27,7 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
-          super_secret: ${{ secrets.SuperSecret }}
-          BRANCH: master
+          token: ${{ secrets.SuperSecret }}
+          BRANCH: build
           FOLDER: _site
           CLEAN: true
