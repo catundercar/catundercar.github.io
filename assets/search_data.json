@@ -97,6 +97,14 @@
 
   
     {
+      "title"    : "template page",
+      "category" : "cate1",
+      
+      "url"      : "catundercar.github.io/wiki/template/",
+      "keywords" : "keyword1, keyword2"
+    } ,
+  
+    {
       "title"    : "Mac 清理磁盘空间",
       "category" : "",
       
