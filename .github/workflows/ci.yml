@@ -14,9 +14,9 @@ jobs:
           persist-credentials: false
 
       - name: Set Ruby 2.7
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.2
+          ruby-version: 2.7
 
       - name: Install and Build
         run: |
