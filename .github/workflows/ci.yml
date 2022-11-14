@@ -28,6 +28,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
           super_secret: ${{ secrets.SuperSecret }}
-          BRANCH: built
+          BRANCH: master
           FOLDER: _site
           CLEAN: true
