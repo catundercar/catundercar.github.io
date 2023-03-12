@@ -1,1 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2022-11-15T01:34:42+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2023-03-12T17:55:26+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">&lt;p&gt;MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。&lt;/p&gt;
+
+&lt;h2 id=&quot;连接器&quot;&gt;连接器&lt;/h2&gt;
+&lt;p&gt;连接器负责跟客户端建立连接、获取权限、维持和管理连接。
+查看连接：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SHOW PROCESSLIST
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;![[images/post/190DC58A-F184-4DF8-8911-9E9F3553B59D_4_5005_c.jpeg]]
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sleep&lt;/code&gt; 表示空闲连接，默认8小时自动断开，通过参数wait_timeout控制。&lt;/p&gt;
+
+&lt;h3 id=&quot;长连接&quot;&gt;长连接&lt;/h3&gt;
+&lt;p&gt;长连接是指连接成功后，如果客户端持续有请求，则一直使用同一个连接。
+&lt;strong&gt;MySQL在执行过程中，临时使用的内存是管理在连接对象里面的，这些资源会在连接断开的时候才会释放。&lt;/strong&gt;
+所以长连接累积下来，可能导致内存占用太大，被系统强行杀掉（OOM），会导致MySQL异常重启。
+解决方案：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;定期关闭长连接。使用一段时间之后，获者程序里面判断执行过一个占用内存的大查询后，断开连接，之后查询再重连。&lt;/li&gt;
+  &lt;li&gt;每次执行一个比较大的操作后，通过执行mysql_reset_connection来重新初始化连接资源。这个过程不需要重连和重新做权限验证，但是回不将连接恢复到刚刚创建完时的状态。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;分析器&quot;&gt;分析器&lt;/h2&gt;
+&lt;p&gt;词法分析和语法分析。&lt;/p&gt;
+
+&lt;h2 id=&quot;优化器&quot;&gt;优化器&lt;/h2&gt;
+&lt;p&gt;索引优化和多表关联优化。&lt;/p&gt;
+
+&lt;h2 id=&quot;执行器&quot;&gt;执行器&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;判断是否有表的权限&lt;/li&gt;
+  &lt;li&gt;调用存储引擎接口&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。</summary></entry></feed>
