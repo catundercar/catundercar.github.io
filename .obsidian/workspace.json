@@ -13,9 +13,9 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2023-03-12-MySQL-00-基础架构.md",
+                "file": "_posts/2023-03-12-MySQL-01 日志系统.md",
                 "mode": "source",
-                "source": false
+                "source": true
               }
             }
           }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/2023-03-12-MySQL-00-基础架构.md",
+                "file": "_posts/2023-03-12-MySQL-01 日志系统.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/2023-03-12-MySQL-00-基础架构.md",
+                "file": "_posts/2023-03-12-MySQL-01 日志系统.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,16 +125,16 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2023-03-12-MySQL-00-基础架构.md"
+                "file": "_posts/2023-03-12-MySQL-01 日志系统.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -146,10 +146,16 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "dedb5550564a98b4",
+  "active": "8afd67e154eae421",
   "lastOpenFiles": [
+    "images/post/MySQL/Pasted image 20230306153314.png",
+    "images/post/MySQL/Pasted image 20230308232604.png",
+    "_posts/2023-03-12-MySQL-01 日志系统.md",
+    "_posts/2023-03-12-MySQL-02 事务隔离.md",
+    "_posts/2023-03-12-MySQL-00 基础架构.md",
+    "_posts/2023-03-12-MySQL-03 索引.md",
+    "images/post/MySQL",
     "_posts/template.md",
-    "_posts/2023-03-12-MySQL-00-基础架构.md",
     "images/post/190DC58A-F184-4DF8-8911-9E9F3553B59D_4_5005_c.jpeg",
     "images/post",
     "images/新建文件夹",
