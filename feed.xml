@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2023-03-12T17:55:26+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">&lt;p&gt;MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2023-03-12T21:32:35+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00%20%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">&lt;p&gt;MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。&lt;/p&gt;
 
 &lt;h2 id=&quot;连接器&quot;&gt;连接器&lt;/h2&gt;
 &lt;p&gt;连接器负责跟客户端建立连接、获取权限、维持和管理连接。
@@ -28,4 +28,82 @@
 &lt;ol&gt;
   &lt;li&gt;判断是否有表的权限&lt;/li&gt;
   &lt;li&gt;调用存储引擎接口&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。</summary></entry></feed>
+&lt;/ol&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。</summary></entry><entry><title type="html">MySQL-01-日志系统</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-01-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" rel="alternate" type="text/html" title="MySQL-01-日志系统" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-01%20%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-01-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/">&lt;ul&gt;
+  &lt;li&gt;redo log&lt;/li&gt;
+  &lt;li&gt;binlog&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;重做日志redo-log&quot;&gt;重做日志：redo log&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;redo log&lt;/code&gt; 是InnoDB特有的日志。
+WAL（Write-Ahead-Log）: 先写日志，再写磁盘。
+具体来说：
+当有一条记录需要更新的时候，InnoDB 引擎就会先把记录写到 redo log（粉板）里面，并更新内存，这个时候更新就算完成了。同时，InnoDB 引擎会在适当的时候，将这个操作记录更新到磁盘里面，而这个更新往往是在系统比较空闲的时候做。
+InnoDB 的 redo log 是固定大小的，比如可以配置为一组 4 个文件，每个文件的大小是 1GB，那么这块“粉板”总共就可以记录 4GB 的操作。从头开始写，写到末尾就又回到开头循环写，如下面这个图所示。
+![[Pasted image 20230306153314.png]]
+有了 redo log，InnoDB 就可以保证即使数据库发生异常重启，之前提交的记录都不会丢失，这个能力称为 crash-safe。&lt;/p&gt;
+
+&lt;h2 id=&quot;归档日志-binlog&quot;&gt;归档日志： Binlog&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binlog&lt;/code&gt; 是MySQL Server层的日志。
+和&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;redo log&lt;/code&gt; 的不同之处在于：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;redo log 是 InnoDB 引擎特有的；binlog 是 MySQL 的 Server 层实现的，所有引擎都可以使用。&lt;/li&gt;
+  &lt;li&gt;redo log 是物理日志，记录的是“在某个数据页上做了什么修改”；binlog 是逻辑日志，记录的是这个语句的原始逻辑，比如“给 ID=2 这一行的 c 字段加 1 ”。&lt;/li&gt;
+  &lt;li&gt;redo log 是循环写的，空间固定会用完；binlog 是可以追加写入的。“追加写”是指 binlog 文件写到一定大小后会切换到下一个，并不会覆盖以前的日志。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;例子：
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;update T set c=c+1 where ID=2;&lt;/code&gt;
+执行器和InnoDB在执行一个update语句时内部流程：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;sequenceDiagram
+	执行器 -&amp;gt;&amp;gt; InnoDB: 取ID=2这一行
+	alt 数据页不在内存中
+		InnoDB -&amp;gt;&amp;gt; 磁盘: 磁盘中读入内存
+	else
+		InnoDB -&amp;gt;&amp;gt; 执行器: 返回行数据
+	end
+	执行器 -&amp;gt;&amp;gt; 执行器: 将这行的C值+1
+	执行器 -&amp;gt;&amp;gt; InnoDB: Write new value
+	InnoDB -&amp;gt;&amp;gt; InnoDB: Write to memory
+	InnoDB -&amp;gt;&amp;gt; 磁盘: Write redo log
+	Note over InnoDB: Prepare
+	InnoDB -&amp;gt;&amp;gt; 执行器: Done
+	执行器 -&amp;gt;&amp;gt; 磁盘: Write bin log
+	执行器 -&amp;gt;&amp;gt; InnoDB: Commit
+	Note over InnoDB: Committed
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;两阶段提交&quot;&gt;两阶段提交&lt;/h2&gt;
+&lt;p&gt;由于 redo log 和 binlog 是两个独立的逻辑，如果不用两阶段提交，要么就是先写完 redo log 再写 binlog，或者采用反过来的顺序。我们看看这两种方式会有什么问题。 
+仍然用前面的 update 语句来做例子。假设当前 ID=2 的行，字段 c 的值是 0，再假设执行 update 语句过程中在写完第一个日志后，第二个日志还没有写完期间发生了 crash，会出现什么情况呢？&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;先写 redo log 后写 binlog。假设在 redo log 写完，binlog 还没有写完的时候，MySQL 进程异常重启。由于我们前面说过的，redo log 写完之后，系统即使崩溃，仍然能够把数据恢复回来，所以恢复后这一行 c 的值是 1。 但是由于 binlog 没写完就 crash 了，这时候 binlog 里面就没有记录这个语句。因此，之后备份日志的时候，存起来的 binlog 里面就没有这条语句。 然后你会发现，如果需要用这个 binlog 来恢复临时库的话，由于这个语句的 binlog 丢失，这个临时库就会少了这一次更新，恢复出来的这一行 c 的值就是 0，与原库的值不同。&lt;/li&gt;
+  &lt;li&gt;先写 binlog 后写 redo log。如果在 binlog 写完之后 crash，由于 redo log 还没写，崩溃恢复以后这个事务无效，所以这一行 c 的值是 0。但是 binlog 里面已经记录了“把 c 从 0 改成 1”这个日志。所以，在之后用 binlog 来恢复的时候就多了一个事务出来，恢复出来的这一行 c 的值就是 1，与原库的值不同。
+可以看到，如果不使用“两阶段提交”，那么数据库的状态就有可能和用它的日志恢复出来的库的状态不一致。 简单说，redo log 和 binlog 都可以用于表示事务的提交状态，而两阶段提交就是让这两个状态保持逻辑上的一致。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;引用&quot;&gt;引用&lt;/h2&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">redo log binlog</summary></entry><entry><title type="html">MySQL-02-事务隔离</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-02-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB/" rel="alternate" type="text/html" title="MySQL-02-事务隔离" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-02%20%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-02-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB/">&lt;h2 id=&quot;事务&quot;&gt;事务&lt;/h2&gt;
+&lt;p&gt;事务就是一组SQL语句，作为一个工作单元以原子方式进行处理。如果数据库引擎能够成功地对数据库应用整组语句，那么就执行该组语句。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么整组语句都不执行。也就是说，作为事务的一组语句，要么全部执行成功，要么全部执行失败。
+ACID代表原子性(atomicity)、一致性(consistency)、隔离性(isolation)和持久性(durability)&lt;/p&gt;
+
+&lt;h2 id=&quot;隔离性和隔离级别&quot;&gt;隔离性和隔离级别&lt;/h2&gt;
+&lt;h4 id=&quot;隔离性&quot;&gt;隔离性&lt;/h4&gt;
+&lt;p&gt;通常来说，一个事务所做的修改在最终提交以前，对其他事务是不可见的，这就是隔离性带来的结果。在前面的例子中，当执行完第3条语句、第4条语句还未开始时，此时有另外一个账户汇总程序开始运行，其看到的支票账户的余额并没有被减去200美元。后面我们讨论隔离级别(isolation level)的时候，会发现为什么我们要说“通常来说”是不可见的。&lt;/p&gt;
+
+&lt;h3 id=&quot;隔离级别&quot;&gt;隔离级别&lt;/h3&gt;
+&lt;p&gt;多个事务同时执行的时候，可能出现的问题：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;脏读&lt;/li&gt;
+  &lt;li&gt;不可重复读&lt;/li&gt;
+  &lt;li&gt;幻读
+为了解决这些问题，就有了“隔离级别”的概念。
+SQL标准的事务隔离级别有：&lt;/li&gt;
+  &lt;li&gt;读未提交（read uncommitted）
+  一个事务还没提交时，它的变更就能被别的事务看到。&lt;/li&gt;
+  &lt;li&gt;读提交（read committed）
+  一个事务提交后，它的变更才会被其他事务看到。
+  这个级别仍然允许不可重复读(nonrepeatable read)，这意味着同一事务中两次执行相同语句，可能会看到不同的数据结果。&lt;/li&gt;
+  &lt;li&gt;可重复读（repeatable read）
+  一个事务执行过程中看到的数据，总是跟这个事务在启动时看到的数据是一致的。当然在可重复读隔离级别下，未提交变更对其他事务也是不可见的。&lt;/li&gt;
+  &lt;li&gt;串行化（serializable）
+  顾名思义是对于同一行记录，“写”会加“写锁”，“读”会加“读锁”。当出现读写锁冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">事务 事务就是一组SQL语句，作为一个工作单元以原子方式进行处理。如果数据库引擎能够成功地对数据库应用整组语句，那么就执行该组语句。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么整组语句都不执行。也就是说，作为事务的一组语句，要么全部执行成功，要么全部执行失败。 ACID代表原子性(atomicity)、一致性(consistency)、隔离性(isolation)和持久性(durability)</summary></entry></feed>

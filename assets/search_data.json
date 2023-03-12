@@ -105,6 +105,22 @@
     } ,
   
     {
+      "title"    : "MySQL-01-日志系统",
+      "category" : "MySQL",
+      
+      "url"      : "https://catundercar.github.io/2023/03/12/MySQL-01-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/",
+      "keywords" : "redolog binlog"
+    } ,
+  
+    {
+      "title"    : "MySQL-02-事务隔离",
+      "category" : "MySQL",
+      
+      "url"      : "https://catundercar.github.io/2023/03/12/MySQL-02-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB/",
+      "keywords" : "ACID 隔离级别"
+    } ,
+  
+    {
       "title"    : "template page",
       "category" : "cate1",
       
