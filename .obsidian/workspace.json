@@ -11,8 +11,12 @@
             "id": "dedb5550564a98b4",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "_posts/2023-03-12-MySQL-03 索引.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "_posts/2023-03-12-MySQL-03 索引.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "_posts/2023-03-12-MySQL-03 索引.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "_posts/2023-03-12-MySQL-03 索引.md"
+              }
             }
           }
         ],
@@ -138,17 +146,19 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "1f41f35294bb1fa5",
+  "active": "dedb5550564a98b4",
   "lastOpenFiles": [
+    "_posts/踩坑记录：MySQL 查询不区分大小写.md",
+    "_posts/2023-03-14 踩坑记录：MySQL 查询不区分大小写.md",
+    "_posts/2023-03-12-MySQL-03 索引.md",
+    "_posts/template.md",
+    "_posts/2023-03-12-MySQL-00 基础架构.md",
     "_posts/2023-03-12-MySQL-01 日志系统.md",
+    "_posts/2023-03-12-MySQL-02 事务隔离.md",
     "_posts/2023-03-12-MySQL-01 日志系统-QT-20210613-LIUDU.md",
     "images/post/MySQL/Pasted image 20230306153314.png",
     "images/post/MySQL/Pasted image 20230308232604.png",
-    "_posts/2023-03-12-MySQL-02 事务隔离.md",
-    "_posts/2023-03-12-MySQL-00 基础架构.md",
-    "_posts/2023-03-12-MySQL-03 索引.md",
     "images/post/MySQL",
-    "_posts/template.md",
     "images/post/190DC58A-F184-4DF8-8911-9E9F3553B59D_4_5005_c.jpeg",
     "images/post",
     "images/新建文件夹",
