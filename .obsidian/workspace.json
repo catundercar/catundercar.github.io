@@ -11,12 +11,8 @@
             "id": "dedb5550564a98b4",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_posts/2023-03-12-MySQL-01 日志系统.md",
-                "mode": "source",
-                "source": true
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/2023-03-12-MySQL-01 日志系统.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/2023-03-12-MySQL-01 日志系统.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "_posts/2023-03-12-MySQL-01 日志系统.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -146,11 +138,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "8afd67e154eae421",
+  "active": "1f41f35294bb1fa5",
   "lastOpenFiles": [
+    "_posts/2023-03-12-MySQL-01 日志系统.md",
+    "_posts/2023-03-12-MySQL-01 日志系统-QT-20210613-LIUDU.md",
     "images/post/MySQL/Pasted image 20230306153314.png",
     "images/post/MySQL/Pasted image 20230308232604.png",
-    "_posts/2023-03-12-MySQL-01 日志系统.md",
     "_posts/2023-03-12-MySQL-02 事务隔离.md",
     "_posts/2023-03-12-MySQL-00 基础架构.md",
     "_posts/2023-03-12-MySQL-03 索引.md",
