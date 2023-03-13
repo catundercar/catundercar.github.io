@@ -6,7 +6,6 @@ title: 踩坑记录：MySQL 查询不区分大小写
 categories: [MySQL]
 description: MySQL 查询不区分大小写
 keywords: utf8mb4, 编码
-
 ---
 
 最近在使用 MySQL 数据库时遇到了一个问题，就是在进行查询时，MySQL 并不会区分查询条件中的大小写。
