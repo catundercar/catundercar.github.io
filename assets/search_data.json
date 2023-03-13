@@ -121,6 +121,14 @@
     } ,
   
     {
+      "title"    : "MySQL-00-基础架构",
+      "category" : "MySQL",
+      
+      "url"      : "https://catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/",
+      "keywords" : "MySQL架构"
+    } ,
+  
+    {
       "title"    : "template page",
       "category" : "cate1",
       

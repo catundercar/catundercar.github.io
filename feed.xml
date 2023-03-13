@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2023-03-13T10:12:06+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00%20%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">&lt;p&gt;MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2023-03-13T23:48:07+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00%20%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">&lt;p&gt;MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。&lt;/p&gt;
 
 &lt;h2 id=&quot;连接器&quot;&gt;连接器&lt;/h2&gt;
 &lt;p&gt;连接器负责跟客户端建立连接、获取权限、维持和管理连接。
@@ -107,4 +107,99 @@ SQL标准的事务隔离级别有：&lt;/li&gt;
   一个事务执行过程中看到的数据，总是跟这个事务在启动时看到的数据是一致的。当然在可重复读隔离级别下，未提交变更对其他事务也是不可见的。&lt;/li&gt;
   &lt;li&gt;串行化（serializable）
   顾名思义是对于同一行记录，“写”会加“写锁”，“读”会加“读锁”。当出现读写锁冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">事务 事务就是一组SQL语句，作为一个工作单元以原子方式进行处理。如果数据库引擎能够成功地对数据库应用整组语句，那么就执行该组语句。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么整组语句都不执行。也就是说，作为事务的一组语句，要么全部执行成功，要么全部执行失败。 ACID代表原子性(atomicity)、一致性(consistency)、隔离性(isolation)和持久性(durability)</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">事务 事务就是一组SQL语句，作为一个工作单元以原子方式进行处理。如果数据库引擎能够成功地对数据库应用整组语句，那么就执行该组语句。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么整组语句都不执行。也就是说，作为事务的一组语句，要么全部执行成功，要么全部执行失败。 ACID代表原子性(atomicity)、一致性(consistency)、隔离性(isolation)和持久性(durability)</summary></entry><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03%20%E7%B4%A2%E5%BC%95</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/">&lt;h2 id=&quot;索引&quot;&gt;索引&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;提高数据查询的效率&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;数据存储在磁盘上面，需要索引按某个key（搜索码）记录数据存储的位置，提高查询效率。&lt;/p&gt;
+
+&lt;h3 id=&quot;索引常见模型&quot;&gt;索引常见模型&lt;/h3&gt;
+
+&lt;p&gt;有两种基本的索引类型：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;顺序索引&lt;/p&gt;
+
+    &lt;p&gt;基于值的顺序排序。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;散列索引（hash）&lt;/p&gt;
+
+    &lt;p&gt;基于将值平均分布到若干散列桶中。一个值所属的散列桶是由一个函数决定的，该函数称为散列函数（hash function）&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;指标&quot;&gt;指标&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;查询类型&lt;/p&gt;
+
+    &lt;p&gt;能有效支持的访问类型。访问类型可以包括找到具体特定属性值的记录，以及找到属性值落在某个特定范围内的记录。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;查询时间&lt;/p&gt;
+
+    &lt;p&gt;查询一个特定数据项或数据项集所需的时间。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;写入时间&lt;/p&gt;
+
+    &lt;p&gt;插入一个新数据项所需的时间。该值包括找到待删除项所需的时间，以及更新索引结构所需的时间。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;删除时间&lt;/p&gt;
+
+    &lt;p&gt;删除一个数据项所需的时间。该值包括找到待删除项所需的时间，以及更新索引结构所需的时间。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;空间开销&lt;/p&gt;
+
+    &lt;p&gt;索引结构所占用的额外存储空间。倘若存储索引结构的额外空间大小适度，通常牺牲一定的空间代价来换取性能的提高是值得的。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;顺序索引&quot;&gt;顺序索引&lt;/h3&gt;
+
+&lt;p&gt;为了快速随机访问文件中的记录，可以使用索引结构。每个索引结构与一个特定的搜索码相关联。顺序索引按顺序存储搜索码的值，并将每个搜索码与包含该搜索码的记录关联起来。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph LR
+    key1(1) --&amp;gt; record1(id:1 name: a)
+    key2(2) --&amp;gt; record2(id:2 name: b)
+    key3(3) --&amp;gt; record3(id:3 name: c)
+    record1 --&amp;gt; file
+    record2 --&amp;gt; file
+    record3 --&amp;gt; file
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;文件中的记录自身也可以按照某种排序顺序存储。一个文件可以有多个索引，分别基于不同的搜索码。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;聚簇索引（clustering index）(primary index)&lt;/p&gt;
+
+    &lt;p&gt;如果文件按照某个搜索码指定的顺序排序，那么该搜索码对应的索引称为聚簇索引。聚簇索引也称为主索引。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;非聚簇索引(non-clustering index)（二级索引）（secondary index）&lt;/p&gt;
+
+    &lt;p&gt;搜索码指定的顺序与文件中记录的物理顺序不同的索引称为非聚簇索引。也称为辅助索引。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;索引顺序文件&lt;/p&gt;
+
+    &lt;p&gt;按照聚簇索引顺序排列的文件称为索引顺序文件。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;b树索引文件&quot;&gt;B+树索引文件&lt;/h3&gt;
+
+&lt;h3 id=&quot;哈希表&quot;&gt;哈希表&lt;/h3&gt;
+
+&lt;h3 id=&quot;有序数组&quot;&gt;有序数组&lt;/h3&gt;
+
+&lt;h3 id=&quot;搜索树&quot;&gt;搜索树&lt;/h3&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">索引</summary></entry></feed>
