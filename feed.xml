@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2023-03-13T10:01:33+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00%20%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">&lt;p&gt;MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2023-03-13T10:12:06+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00%20%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">&lt;p&gt;MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。&lt;/p&gt;
 
 &lt;h2 id=&quot;连接器&quot;&gt;连接器&lt;/h2&gt;
 &lt;p&gt;连接器负责跟客户端建立连接、获取权限、维持和管理连接。
@@ -54,7 +54,8 @@ InnoDB 的 redo log 是固定大小的，比如可以配置为一组 4 个文件
 &lt;p&gt;例子：
 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;update T set c=c+1 where ID=2;&lt;/code&gt;
 执行器和InnoDB在执行一个update语句时内部流程：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;sequenceDiagram
+&lt;div class=&quot;mermaid&quot;&gt;
+sequenceDiagram
 	执行器 -&amp;gt;&amp;gt; InnoDB: 取ID=2这一行
 	alt 数据页不在内存中
 		InnoDB -&amp;gt;&amp;gt; 磁盘: 磁盘中读入内存
@@ -70,7 +71,7 @@ InnoDB 的 redo log 是固定大小的，比如可以配置为一组 4 个文件
 	执行器 -&amp;gt;&amp;gt; 磁盘: Write bin log
 	执行器 -&amp;gt;&amp;gt; InnoDB: Commit
 	Note over InnoDB: Committed
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&quot;两阶段提交&quot;&gt;两阶段提交&lt;/h2&gt;
 &lt;p&gt;由于 redo log 和 binlog 是两个独立的逻辑，如果不用两阶段提交，要么就是先写完 redo log 再写 binlog，或者采用反过来的顺序。我们看看这两种方式会有什么问题。 
