@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2023-03-14T00:04:59+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00%20%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">&lt;p&gt;MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2023-03-14T00:10:08+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00%20%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">&lt;p&gt;MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。&lt;/p&gt;
 
 &lt;h2 id=&quot;连接器&quot;&gt;连接器&lt;/h2&gt;
 &lt;p&gt;连接器负责跟客户端建立连接、获取权限、维持和管理连接。
@@ -107,7 +107,7 @@ SQL标准的事务隔离级别有：&lt;/li&gt;
   一个事务执行过程中看到的数据，总是跟这个事务在启动时看到的数据是一致的。当然在可重复读隔离级别下，未提交变更对其他事务也是不可见的。&lt;/li&gt;
   &lt;li&gt;串行化（serializable）
   顾名思义是对于同一行记录，“写”会加“写锁”，“读”会加“读锁”。当出现读写锁冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">事务 事务就是一组SQL语句，作为一个工作单元以原子方式进行处理。如果数据库引擎能够成功地对数据库应用整组语句，那么就执行该组语句。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么整组语句都不执行。也就是说，作为事务的一组语句，要么全部执行成功，要么全部执行失败。 ACID代表原子性(atomicity)、一致性(consistency)、隔离性(isolation)和持久性(durability)</summary></entry><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03%20%E7%B4%A2%E5%BC%95</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/">&lt;h2 id=&quot;索引&quot;&gt;索引&lt;/h2&gt;
+&lt;/ul&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">事务 事务就是一组SQL语句，作为一个工作单元以原子方式进行处理。如果数据库引擎能够成功地对数据库应用整组语句，那么就执行该组语句。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么整组语句都不执行。也就是说，作为事务的一组语句，要么全部执行成功，要么全部执行失败。 ACID代表原子性(atomicity)、一致性(consistency)、隔离性(isolation)和持久性(durability)</summary></entry><entry><title type="html">MySQL-03 索引</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/" rel="alternate" type="text/html" title="MySQL-03 索引" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03%20%E7%B4%A2%E5%BC%95</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/">&lt;h2 id=&quot;索引&quot;&gt;索引&lt;/h2&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;提高数据查询的效率&lt;/p&gt;
@@ -197,9 +197,13 @@ SQL标准的事务隔离级别有：&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;b树索引文件&quot;&gt;B+树索引文件&lt;/h3&gt;
+&lt;p&gt;// TODO&lt;/p&gt;
 
 &lt;h3 id=&quot;哈希表&quot;&gt;哈希表&lt;/h3&gt;
 
-&lt;h3 id=&quot;有序数组&quot;&gt;有序数组&lt;/h3&gt;
+&lt;p&gt;//TODO&lt;/p&gt;
 
-&lt;h3 id=&quot;搜索树&quot;&gt;搜索树&lt;/h3&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">索引</summary></entry></feed>
+&lt;h3 id=&quot;有序数组&quot;&gt;有序数组&lt;/h3&gt;
+&lt;p&gt;//TODO&lt;/p&gt;
+&lt;h3 id=&quot;搜索树&quot;&gt;搜索树&lt;/h3&gt;
+&lt;p&gt;//TODO&lt;/p&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">索引</summary></entry></feed>
