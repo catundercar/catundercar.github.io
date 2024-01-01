@@ -1,4 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2023-03-14T14:04:46+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">踩坑记录：MySQL 查询不区分大小写</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95-MySQL-%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/" rel="alternate" type="text/html" title="踩坑记录：MySQL 查询不区分大小写" /><published>2023-03-14T00:00:00+08:00</published><updated>2023-03-14T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95:MySQL%20%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95-MySQL-%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/">&lt;p&gt;最近在使用 MySQL 数据库时遇到了一个问题，就是在进行查询时，MySQL 并不会区分查询条件中的大小写。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2024-01-01T21:20:37+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MMKV 的交叉编译</title><link href="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" rel="alternate" type="text/html" title="MMKV 的交叉编译" /><published>2024-01-01T00:00:00+08:00</published><updated>2024-01-01T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV%20%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+&lt;p&gt;参考官方文档：
+&lt;a href=&quot;https://github.com/Tencent/MMKV/wiki/golang_setup&quot;&gt;golang_setup · Tencent/MMKV Wiki (github.com)&lt;/a&gt;
+在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amd64&lt;/code&gt; host 环境上交叉编译&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aarch64&lt;/code&gt;架构时出现以下的问题：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;编译&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mmkv&lt;/code&gt;静态库时：提示&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selected processor does not support &quot;aese v6.16b,v0.16...&quot;&lt;/code&gt; 报错信息.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cgo&lt;/code&gt;提示 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cannot find -lz&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cgo&lt;/code&gt;链接报错：
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# mmkv_test
+/usr/local/go/pkg/tool/linux_amd64/link: running aarch64-linux-g++ failed: exit status 1
+/tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_checkReSetCryptKey&apos;:
+/tmp/go-build/cgo-gcc-prolog:146: undefined reference to `checkReSetCryptKey&apos;
+/tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_cryptKey&apos;:
+/tmp/go-build/cgo-gcc-prolog:228: undefined reference to `cryptKey&apos;
+/tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_reKey&apos;:
+/tmp/go-build/cgo-gcc-prolog:1004: undefined reference to `reKey&apos;
+collect2: error: ld returned 1 exit status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;相关&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;issue&lt;/code&gt;:
+https://github.com/Tencent/MMKV/issues/1212&lt;/p&gt;
+
+&lt;h2 id=&quot;解决方案&quot;&gt;解决方案：&lt;/h2&gt;
+&lt;p&gt;问题 1:
+如果不需要加密功能，直接开启&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MMKV_DISABLE_CRYPT&lt;/code&gt;宏，然后再按文档进行编译。&lt;/p&gt;
+
+&lt;p&gt;问题 2:
+这是由于未找到aarch64版本的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libz&lt;/code&gt;导致, 解决方式为：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;静态编译&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zlib&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;将&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libz.a&lt;/code&gt;文件放到第一个问题编译出来的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mmkv&lt;/code&gt;静态库的lib目录中.&lt;/li&gt;
+  &lt;li&gt;重新编译.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;问题3:
+这是由于开启&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MMKV_DISABLE_CRYPT&lt;/code&gt;时，没有兼容&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;golang&lt;/code&gt;引发的问题，相关pr：
+https://github.com/Tencent/MMKV/pull/1213&lt;/p&gt;
+
+&lt;h2 id=&quot;整体编译过程&quot;&gt;整体编译过程：&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;下载aarch64 交叉编译链工具：
+ https://toolchains.bootlin.com&lt;/li&gt;
+  &lt;li&gt;下载&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zlib&lt;/code&gt;源码
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  wget https://www.zlib.net/zlib-1.3.tar.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;静态编译&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zlib&lt;/code&gt;源码
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; ./configure --static --prefix=. #需要先设置CC,CXX等环境变量
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;复制&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zlib.a&lt;/code&gt;到&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lib&lt;/code&gt;目录&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;go build&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>车底下的猫</name></author><category term="问题记录" /><summary type="html">背景 参考官方文档： golang_setup · Tencent/MMKV Wiki (github.com) 在 amd64 host 环境上交叉编译aarch64架构时出现以下的问题： 编译mmkv静态库时：提示selected processor does not support &quot;aese v6.16b,v0.16...&quot; 报错信息. cgo提示 cannot find -lz cgo链接报错： # mmkv_test /usr/local/go/pkg/tool/linux_amd64/link: running aarch64-linux-g++ failed: exit status 1 /tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_checkReSetCryptKey&apos;: /tmp/go-build/cgo-gcc-prolog:146: undefined reference to `checkReSetCryptKey&apos; /tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_cryptKey&apos;: /tmp/go-build/cgo-gcc-prolog:228: undefined reference to `cryptKey&apos; /tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_reKey&apos;: /tmp/go-build/cgo-gcc-prolog:1004: undefined reference to `reKey&apos; collect2: error: ld returned 1 exit status</summary></entry><entry><title type="html">踩坑记录：MySQL 查询不区分大小写</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95-MySQL-%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/" rel="alternate" type="text/html" title="踩坑记录：MySQL 查询不区分大小写" /><published>2023-03-14T00:00:00+08:00</published><updated>2023-03-14T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95%EF%BC%9AMySQL%20%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95-MySQL-%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/">&lt;p&gt;最近在使用 MySQL 数据库时遇到了一个问题，就是在进行查询时，MySQL 并不会区分查询条件中的大小写。&lt;/p&gt;
 
 &lt;p&gt;经过一番研究，发现这是 MySQL 的一个特性：&lt;strong&gt;MySQL 默认使用的编码是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utf8mb4&lt;/code&gt;，在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utf8mb4&lt;/code&gt; 编码下，MySQL 默认情况下是不区分大小写的。&lt;/strong&gt;这是因为在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utf8mb4&lt;/code&gt; 编码下，大小写字母在二进制表示上是相同的，因此在进行比较时，MySQL 会忽略大小写。&lt;/p&gt;
 
@@ -12,15 +69,15 @@
 
 &lt;p&gt;具体来说，我们可以将查询条件中的字符串转换为特定的字符集，以便在查询时进行区分。例如，我们可以使用以下语句来进行查询：&lt;/p&gt;
 
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COLLATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8mb4_bin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'SearchString'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COLLATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8_bin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'SearchString'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COLLATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8mb4_bin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;SearchString&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COLLATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8_bin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;SearchString&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ol&gt;
   &lt;li&gt;使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BINARY&lt;/code&gt; 运算符&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;BINARY&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'SearchString'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;BINARY&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;SearchString&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COLLATE&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BINARY&lt;/code&gt; 运算符在 MySQL 中的效率都比较高。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COLLATE&lt;/code&gt; 关键字通常用于对特定列或查询进行设置，而 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BINARY&lt;/code&gt; 运算符通常用于对整个查询进行设置。&lt;/p&gt;
