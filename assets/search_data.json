@@ -145,6 +145,14 @@
     } ,
   
     {
+      "title"    : "DGraph 全文检索",
+      "category" : "DGraph",
+      
+      "url"      : "https://catundercar.github.io/2024/04/14/DGraph-%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/",
+      "keywords" : "DGraph,Full-Text Search"
+    } ,
+  
+    {
       "title"    : "template page",
       "category" : "cate1",
       

@@ -1,4 +1,137 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2024-04-15T00:02:23+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MMKV 的交叉编译</title><link href="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" rel="alternate" type="text/html" title="MMKV 的交叉编译" /><published>2024-01-01T00:00:00+08:00</published><updated>2024-01-01T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV%20%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/"><![CDATA[<h2 id="背景">背景</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2024-04-15T00:18:43+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">DGraph 全文检索</title><link href="https://catundercar.github.io/catundercar.github.io/2024/04/14/DGraph-%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" rel="alternate" type="text/html" title="DGraph 全文检索" /><published>2024-04-14T00:00:00+08:00</published><updated>2024-04-14T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2024/04/14/DGraph%20%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2024/04/14/DGraph-%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/"><![CDATA[<h1 id="使用">使用</h1>
+
+<p>语法：<code class="language-plaintext highlighter-rouge">alloftext(predicate, "space-separated text")</code> and <code class="language-plaintext highlighter-rouge">anyoftext(predicate, "space-separated text")</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">alloftext</code> 只有包含所有<code class="language-plaintext highlighter-rouge">token</code>的节点会被返回（取交集 Intersect）。</p>
+
+<p><code class="language-plaintext highlighter-rouge">anyoftext</code> 返回包含任意<code class="language-plaintext highlighter-rouge">token</code>的节点。</p>
+
+<p>应用带有词干和停用词的全文搜索来查找与所有或任何给定文本匹配的字符串。</p>
+
+<h1 id="实现">实现</h1>
+
+<p>DGraph 使用 <a href="https://github.com/blevesearch/bleve">bleve</a> 进行全文搜索索引。</p>
+
+<h2 id="tokenizer">Tokenizer</h2>
+
+<p>分词部分的代码在<code class="language-plaintext highlighter-rouge">tok</code>包。</p>
+
+<p>核心的接口：<code class="language-plaintext highlighter-rouge">Tokenizer</code></p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Tokenizer defines what a tokenizer must provide.</span>
+<span class="k">type</span> <span class="n">Tokenizer</span> <span class="k">interface</span> <span class="p">{</span>
+
+	<span class="c">// 分词器的名称.不允许重复.</span>
+	<span class="n">Name</span><span class="p">()</span> <span class="kt">string</span>
+
+	<span class="c">// Type returns the string representation of the typeID that we care about.</span>
+	<span class="n">Type</span><span class="p">()</span> <span class="kt">string</span>
+
+	<span class="c">// Tokens return tokens for a given value. The tokens shouldn't be encoded</span>
+	<span class="c">// with the byte identifier.</span>
+	<span class="n">Tokens</span><span class="p">(</span><span class="k">interface</span><span class="p">{})</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+
+	<span class="c">// Identifier returns the prefix byte for this token type. This should be</span>
+	<span class="c">// unique. The range 0x80 to 0xff (inclusive) is reserved for user-provided</span>
+	<span class="c">// custom tokenizers.</span>
+	<span class="n">Identifier</span><span class="p">()</span> <span class="kt">byte</span>
+
+	<span class="c">// IsSortable returns true if the tokenizer can be used for sorting/ordering.</span>
+	<span class="n">IsSortable</span><span class="p">()</span> <span class="kt">bool</span>
+
+	<span class="c">// IsLossy returns true if we don't store the values directly as index keys</span>
+	<span class="c">// during tokenization. If a predicate is tokenized using an IsLossy() tokenizer,</span>
+	<span class="c">// then we need to fetch the actual value and compare.</span>
+	<span class="n">IsLossy</span><span class="p">()</span> <span class="kt">bool</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="fulltexttokenizer">FullTextTokenizer</h2>
+
+<p><code class="language-plaintext highlighter-rouge">FullTextTokenizer</code> 类实现了全文检索的分词器。</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">FullTextTokenizer</span> <span class="k">struct</span><span class="p">{</span> 
+  <span class="n">lang</span> <span class="kt">string</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>FullTextTokenizer 采用<code class="language-plaintext highlighter-rouge">cjk-bigram</code> 对中文<code class="language-plaintext highlighter-rouge">TokenStream</code>进行词干提取。</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">cjk-bigram</code></p>
+
+    <p><code class="language-plaintext highlighter-rouge">cjk-bigram</code>是一种用于处理中文、日文和韩文（CJK即Chinese, Japanese, Korean的缩写）文本的方法，尤其在信息检索和文本分析中应用广泛。尽管称其为“stemmers filter”可能有些误导，因为它并不直接涉及到传统意义上的“词干提取”（stemming），而更多是关于文本的分词和索引优化。</p>
+
+    <ol>
+      <li><strong>Bigram 分词</strong>：
+        <ul>
+          <li>在处理中文时，<code class="language-plaintext highlighter-rouge">cjk-bigram</code>方法主要采用bigram（二元组）方式来分析文本。Bigram是指连续的两个字符或两个词的组合。例如，对于句子“我们学习”，bigram分割将产生“我们”和“学习”（如果按词分割），或“我 们”、“们 学”、“学 习”（如果按字符分割）。</li>
+        </ul>
+      </li>
+      <li><strong>索引构建</strong>：
+        <ul>
+          <li>在信息检索系统中，使用bigram分割可以帮助构建更为细致的索引，使得搜索引擎可以在没有明确分词界限的情况下，更有效地匹配文本。这种方法特别适用于中文这样的语言，因为中文没有明显的单词界限（如空格分隔）。</li>
+        </ul>
+      </li>
+      <li><strong>提高匹配灵活性</strong>：
+        <ul>
+          <li>使用bigram可以增加文本匹配的灵活性。例如，搜索“学习”时，即使文本中没有精确的“学习”词汇，但只要有连续的“学”和“习”出现，系统也可能将其视为相关文本。</li>
+        </ul>
+      </li>
+      <li><strong>处理效率</strong>：
+        <ul>
+          <li>Bigram方法虽然可以增加处理的复杂度（因为生成的索引更大），但它提供了一种相对简单直接的方式来处理中文文本，特别是在缺乏精确分词工具的情况下。</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<p>总体流程：</p>
+
+<p><img src="../images/post/DGraph/token.png" alt="token" /></p>
+
+<p>核心代码：</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="n">unicodenormName</span> <span class="o">=</span> <span class="s">"unicodenorm_nfkc"</span>
+
+<span class="k">func</span> <span class="n">setupBleve</span><span class="p">{</span>
+  <span class="o">...</span>
+  <span class="c">// fulltext analyzer - does language stop-words removal and stemming.</span>
+	<span class="n">fulltextAnalyzer</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">bleveCache</span><span class="o">.</span><span class="n">DefineAnalyzer</span><span class="p">(</span><span class="s">"fulltext"</span><span class="p">,</span>
+		<span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">interface</span><span class="p">{}{</span>
+			<span class="s">"type"</span><span class="o">:</span>      <span class="n">custom</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
+			<span class="s">"tokenizer"</span><span class="o">:</span> <span class="n">unicode</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="c">// splits on word boundaries.</span>
+			<span class="s">"token_filters"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
+				<span class="n">lowercase</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="c">// lowercase</span>
+        <span class="n">unicodenormName</span><span class="p">,</span> <span class="c">// normalize tokens by unicodenorm_nfkc.</span>
+			<span class="p">},</span>
+		<span class="p">})</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+
+
+<span class="k">func</span> <span class="p">(</span><span class="n">t</span> <span class="n">FullTextTokenizer</span><span class="p">)</span> <span class="n">Tokens</span><span class="p">(</span><span class="n">v</span> <span class="k">interface</span><span class="p">{})</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">str</span><span class="p">,</span> <span class="n">ok</span> <span class="o">:=</span> <span class="n">v</span><span class="o">.</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span>
+	<span class="k">if</span> <span class="o">!</span><span class="n">ok</span> <span class="o">||</span> <span class="n">str</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{},</span> <span class="no">nil</span>
+	<span class="p">}</span>
+	<span class="n">lang</span> <span class="o">:=</span> <span class="n">LangBase</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">lang</span><span class="p">)</span>
+  <span class="c">// pass 1 - lowercase and normalize input 转换为小写并且使用Unicode 标准来分割文本.</span>
+	<span class="n">tokens</span> <span class="o">:=</span> <span class="n">fulltextAnalyzer</span><span class="o">.</span><span class="n">Analyze</span><span class="p">([]</span><span class="kt">byte</span><span class="p">(</span><span class="n">str</span><span class="p">))</span>
+	<span class="c">// pass 2 - filter stop words</span>
+	<span class="n">tokens</span> <span class="o">=</span> <span class="n">filterStopwords</span><span class="p">(</span><span class="n">lang</span><span class="p">,</span> <span class="n">tokens</span><span class="p">)</span>
+	<span class="c">// pass 3 - filter stems</span>
+	<span class="n">tokens</span> <span class="o">=</span> <span class="n">filterStemmers</span><span class="p">(</span><span class="n">lang</span><span class="p">,</span> <span class="n">tokens</span><span class="p">)</span> 
+	<span class="c">// finally, return the terms.</span>
+	<span class="k">return</span> <span class="n">uniqueTerms</span><span class="p">(</span><span class="n">tokens</span><span class="p">),</span> <span class="no">nil</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">fulltextAnalyzer</code>代表一个bleve里面的分析器，它的功能为将字符串转换为小写并且使用Unicode 标准来分割文本。</p>
+
+<p><code class="language-plaintext highlighter-rouge">filterStemmers(lang, tokens)</code> 内部通过语言和<code class="language-plaintext highlighter-rouge">filter</code>类型的映射选择语言对应的<code class="language-plaintext highlighter-rouge">filter</code>进行词干分析。</p>]]></content><author><name>车底下的猫</name></author><category term="DGraph" /><summary type="html"><![CDATA[DGraph 全文检索介绍]]></summary></entry><entry><title type="html">MMKV 的交叉编译</title><link href="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" rel="alternate" type="text/html" title="MMKV 的交叉编译" /><published>2024-01-01T00:00:00+08:00</published><updated>2024-01-01T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV%20%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/"><![CDATA[<h2 id="背景">背景</h2>
 <p>参考官方文档：
 <a href="https://github.com/Tencent/MMKV/wiki/golang_setup">golang_setup · Tencent/MMKV Wiki (github.com)</a>
 在 <code class="language-plaintext highlighter-rouge">amd64</code> host 环境上交叉编译<code class="language-plaintext highlighter-rouge">aarch64</code>架构时出现以下的问题：</p>
