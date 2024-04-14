@@ -1,308 +1,308 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2024-01-01T21:20:37+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MMKV 的交叉编译</title><link href="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" rel="alternate" type="text/html" title="MMKV 的交叉编译" /><published>2024-01-01T00:00:00+08:00</published><updated>2024-01-01T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV%20%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
-&lt;p&gt;参考官方文档：
-&lt;a href=&quot;https://github.com/Tencent/MMKV/wiki/golang_setup&quot;&gt;golang_setup · Tencent/MMKV Wiki (github.com)&lt;/a&gt;
-在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amd64&lt;/code&gt; host 环境上交叉编译&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aarch64&lt;/code&gt;架构时出现以下的问题：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;编译&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mmkv&lt;/code&gt;静态库时：提示&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selected processor does not support &quot;aese v6.16b,v0.16...&quot;&lt;/code&gt; 报错信息.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cgo&lt;/code&gt;提示 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cannot find -lz&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cgo&lt;/code&gt;链接报错：
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# mmkv_test
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2024-04-14T22:51:46+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">MMKV 的交叉编译</title><link href="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" rel="alternate" type="text/html" title="MMKV 的交叉编译" /><published>2024-01-01T00:00:00+08:00</published><updated>2024-01-01T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV%20%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/"><![CDATA[<h2 id="背景">背景</h2>
+<p>参考官方文档：
+<a href="https://github.com/Tencent/MMKV/wiki/golang_setup">golang_setup · Tencent/MMKV Wiki (github.com)</a>
+在 <code class="language-plaintext highlighter-rouge">amd64</code> host 环境上交叉编译<code class="language-plaintext highlighter-rouge">aarch64</code>架构时出现以下的问题：</p>
+<ol>
+  <li>
+    <p>编译<code class="language-plaintext highlighter-rouge">mmkv</code>静态库时：提示<code class="language-plaintext highlighter-rouge">selected processor does not support "aese v6.16b,v0.16..."</code> 报错信息.</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">cgo</code>提示 <code class="language-plaintext highlighter-rouge">cannot find -lz</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cgo</code>链接报错：
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mmkv_test
 /usr/local/go/pkg/tool/linux_amd64/link: running aarch64-linux-g++ failed: exit status 1
-/tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_checkReSetCryptKey&apos;:
-/tmp/go-build/cgo-gcc-prolog:146: undefined reference to `checkReSetCryptKey&apos;
-/tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_cryptKey&apos;:
-/tmp/go-build/cgo-gcc-prolog:228: undefined reference to `cryptKey&apos;
-/tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_reKey&apos;:
-/tmp/go-build/cgo-gcc-prolog:1004: undefined reference to `reKey&apos;
+/tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_checkReSetCryptKey':
+/tmp/go-build/cgo-gcc-prolog:146: undefined reference to `checkReSetCryptKey'
+/tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_cryptKey':
+/tmp/go-build/cgo-gcc-prolog:228: undefined reference to `cryptKey'
+/tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_reKey':
+/tmp/go-build/cgo-gcc-prolog:1004: undefined reference to `reKey'
 collect2: error: ld returned 1 exit status
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+</code></pre></div>    </div>
+  </li>
+</ol>
 
-&lt;p&gt;相关&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;issue&lt;/code&gt;:
-https://github.com/Tencent/MMKV/issues/1212&lt;/p&gt;
+<p>相关<code class="language-plaintext highlighter-rouge">issue</code>:
+https://github.com/Tencent/MMKV/issues/1212</p>
 
-&lt;h2 id=&quot;解决方案&quot;&gt;解决方案：&lt;/h2&gt;
-&lt;p&gt;问题 1:
-如果不需要加密功能，直接开启&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MMKV_DISABLE_CRYPT&lt;/code&gt;宏，然后再按文档进行编译。&lt;/p&gt;
+<h2 id="解决方案">解决方案：</h2>
+<p>问题 1:
+如果不需要加密功能，直接开启<code class="language-plaintext highlighter-rouge">MMKV_DISABLE_CRYPT</code>宏，然后再按文档进行编译。</p>
 
-&lt;p&gt;问题 2:
-这是由于未找到aarch64版本的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libz&lt;/code&gt;导致, 解决方式为：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;静态编译&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zlib&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;将&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libz.a&lt;/code&gt;文件放到第一个问题编译出来的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mmkv&lt;/code&gt;静态库的lib目录中.&lt;/li&gt;
-  &lt;li&gt;重新编译.&lt;/li&gt;
-&lt;/ol&gt;
+<p>问题 2:
+这是由于未找到aarch64版本的<code class="language-plaintext highlighter-rouge">libz</code>导致, 解决方式为：</p>
+<ol>
+  <li>静态编译<code class="language-plaintext highlighter-rouge">zlib</code>.</li>
+  <li>将<code class="language-plaintext highlighter-rouge">libz.a</code>文件放到第一个问题编译出来的<code class="language-plaintext highlighter-rouge">mmkv</code>静态库的lib目录中.</li>
+  <li>重新编译.</li>
+</ol>
 
-&lt;p&gt;问题3:
-这是由于开启&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MMKV_DISABLE_CRYPT&lt;/code&gt;时，没有兼容&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;golang&lt;/code&gt;引发的问题，相关pr：
-https://github.com/Tencent/MMKV/pull/1213&lt;/p&gt;
+<p>问题3:
+这是由于开启<code class="language-plaintext highlighter-rouge">MMKV_DISABLE_CRYPT</code>时，没有兼容<code class="language-plaintext highlighter-rouge">golang</code>引发的问题，相关pr：
+https://github.com/Tencent/MMKV/pull/1213</p>
 
-&lt;h2 id=&quot;整体编译过程&quot;&gt;整体编译过程：&lt;/h2&gt;
+<h2 id="整体编译过程">整体编译过程：</h2>
 
-&lt;ol&gt;
-  &lt;li&gt;下载aarch64 交叉编译链工具：
- https://toolchains.bootlin.com&lt;/li&gt;
-  &lt;li&gt;下载&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zlib&lt;/code&gt;源码
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  wget https://www.zlib.net/zlib-1.3.tar.gz
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;静态编译&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zlib&lt;/code&gt;源码
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; ./configure --static --prefix=. #需要先设置CC,CXX等环境变量
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;复制&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zlib.a&lt;/code&gt;到&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lib&lt;/code&gt;目录&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;go build&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>车底下的猫</name></author><category term="问题记录" /><summary type="html">背景 参考官方文档： golang_setup · Tencent/MMKV Wiki (github.com) 在 amd64 host 环境上交叉编译aarch64架构时出现以下的问题： 编译mmkv静态库时：提示selected processor does not support &quot;aese v6.16b,v0.16...&quot; 报错信息. cgo提示 cannot find -lz cgo链接报错： # mmkv_test /usr/local/go/pkg/tool/linux_amd64/link: running aarch64-linux-g++ failed: exit status 1 /tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_checkReSetCryptKey&apos;: /tmp/go-build/cgo-gcc-prolog:146: undefined reference to `checkReSetCryptKey&apos; /tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_cryptKey&apos;: /tmp/go-build/cgo-gcc-prolog:228: undefined reference to `cryptKey&apos; /tmp/go-link-1100075970/000002.o: In function `_cgo_eea72cd326f0_Cfunc_reKey&apos;: /tmp/go-build/cgo-gcc-prolog:1004: undefined reference to `reKey&apos; collect2: error: ld returned 1 exit status</summary></entry><entry><title type="html">踩坑记录：MySQL 查询不区分大小写</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95-MySQL-%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/" rel="alternate" type="text/html" title="踩坑记录：MySQL 查询不区分大小写" /><published>2023-03-14T00:00:00+08:00</published><updated>2023-03-14T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95%EF%BC%9AMySQL%20%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95-MySQL-%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/">&lt;p&gt;最近在使用 MySQL 数据库时遇到了一个问题，就是在进行查询时，MySQL 并不会区分查询条件中的大小写。&lt;/p&gt;
+<ol>
+  <li>下载aarch64 交叉编译链工具：
+ https://toolchains.bootlin.com</li>
+  <li>下载<code class="language-plaintext highlighter-rouge">zlib</code>源码
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  wget https://www.zlib.net/zlib-1.3.tar.gz
+</code></pre></div>    </div>
+  </li>
+  <li>静态编译<code class="language-plaintext highlighter-rouge">zlib</code>源码
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ./configure --static --prefix=. #需要先设置CC,CXX等环境变量
+</code></pre></div>    </div>
+  </li>
+  <li>复制<code class="language-plaintext highlighter-rouge">zlib.a</code>到<code class="language-plaintext highlighter-rouge">lib</code>目录</li>
+  <li><code class="language-plaintext highlighter-rouge">go build</code></li>
+</ol>]]></content><author><name>车底下的猫</name></author><category term="问题记录" /><summary type="html"><![CDATA[MMKV在 amd64上交叉编译 aarch64（arm64）时的一些问题的记录]]></summary></entry><entry><title type="html">踩坑记录：MySQL 查询不区分大小写</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95-MySQL-%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/" rel="alternate" type="text/html" title="踩坑记录：MySQL 查询不区分大小写" /><published>2023-03-14T00:00:00+08:00</published><updated>2023-03-14T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95%EF%BC%9AMySQL%20%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/14/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95-MySQL-%E6%9F%A5%E8%AF%A2%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/"><![CDATA[<p>最近在使用 MySQL 数据库时遇到了一个问题，就是在进行查询时，MySQL 并不会区分查询条件中的大小写。</p>
 
-&lt;p&gt;经过一番研究，发现这是 MySQL 的一个特性：&lt;strong&gt;MySQL 默认使用的编码是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utf8mb4&lt;/code&gt;，在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utf8mb4&lt;/code&gt; 编码下，MySQL 默认情况下是不区分大小写的。&lt;/strong&gt;这是因为在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utf8mb4&lt;/code&gt; 编码下，大小写字母在二进制表示上是相同的，因此在进行比较时，MySQL 会忽略大小写。&lt;/p&gt;
+<p>经过一番研究，发现这是 MySQL 的一个特性：<strong>MySQL 默认使用的编码是 <code class="language-plaintext highlighter-rouge">utf8mb4</code>，在 <code class="language-plaintext highlighter-rouge">utf8mb4</code> 编码下，MySQL 默认情况下是不区分大小写的。</strong>这是因为在 <code class="language-plaintext highlighter-rouge">utf8mb4</code> 编码下，大小写字母在二进制表示上是相同的，因此在进行比较时，MySQL 会忽略大小写。</p>
 
-&lt;p&gt;所以&lt;strong&gt;无论在查询条件中使用的是大写字母、小写字母还是混合字母，MySQL 都会将其视为相同的查询条件。&lt;/strong&gt;&lt;/p&gt;
+<p>所以<strong>无论在查询条件中使用的是大写字母、小写字母还是混合字母，MySQL 都会将其视为相同的查询条件。</strong></p>
 
-&lt;h3 id=&quot;解决方案&quot;&gt;解决方案：&lt;/h3&gt;
+<h3 id="解决方案">解决方案：</h3>
 
-&lt;ol&gt;
-  &lt;li&gt;使用 &lt;strong&gt;COLLATE 关键字来指定查询时的字符集&lt;/strong&gt;。&lt;/li&gt;
-&lt;/ol&gt;
+<ol>
+  <li>使用 <strong>COLLATE 关键字来指定查询时的字符集</strong>。</li>
+</ol>
 
-&lt;p&gt;具体来说，我们可以将查询条件中的字符串转换为特定的字符集，以便在查询时进行区分。例如，我们可以使用以下语句来进行查询：&lt;/p&gt;
+<p>具体来说，我们可以将查询条件中的字符串转换为特定的字符集，以便在查询时进行区分。例如，我们可以使用以下语句来进行查询：</p>
 
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COLLATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8mb4_bin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;SearchString&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COLLATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8_bin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;SearchString&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="k">table</span> <span class="k">WHERE</span> <span class="k">column</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_bin</span> <span class="o">=</span> <span class="s1">'SearchString'</span><span class="p">;</span>
+<span class="o">//</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="k">table</span> <span class="k">WHERE</span> <span class="k">column</span> <span class="k">COLLATE</span> <span class="n">utf8_bin</span> <span class="o">=</span> <span class="s1">'SearchString'</span><span class="p">;</span>
+</code></pre></div></div>
 
-&lt;ol&gt;
-  &lt;li&gt;使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BINARY&lt;/code&gt; 运算符&lt;/li&gt;
-&lt;/ol&gt;
+<ol>
+  <li>使用 <code class="language-plaintext highlighter-rouge">BINARY</code> 运算符</li>
+</ol>
 
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;BINARY&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;SearchString&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="k">table</span> <span class="k">WHERE</span> <span class="nb">BINARY</span> <span class="k">column</span> <span class="o">=</span> <span class="s1">'SearchString'</span><span class="p">;</span>
+</code></pre></div></div>
 
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COLLATE&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BINARY&lt;/code&gt; 运算符在 MySQL 中的效率都比较高。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COLLATE&lt;/code&gt; 关键字通常用于对特定列或查询进行设置，而 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BINARY&lt;/code&gt; 运算符通常用于对整个查询进行设置。&lt;/p&gt;
+<p><code class="language-plaintext highlighter-rouge">COLLATE</code> 和 <code class="language-plaintext highlighter-rouge">BINARY</code> 运算符在 MySQL 中的效率都比较高。<code class="language-plaintext highlighter-rouge">COLLATE</code> 关键字通常用于对特定列或查询进行设置，而 <code class="language-plaintext highlighter-rouge">BINARY</code> 运算符通常用于对整个查询进行设置。</p>
 
-&lt;p&gt;在使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COLLATE&lt;/code&gt;关键字时，由于会对查询条件进行字符集转换，因此可能会稍微降低一些查询性能。但是，这种性能下降通常是可以忽略不计的。在实际使用中，我们可以先尝试使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COLLATE&lt;/code&gt;关键字，如果查询性能不足，再考虑使用其他优化策略。&lt;/p&gt;
+<p>在使用 <code class="language-plaintext highlighter-rouge">COLLATE</code>关键字时，由于会对查询条件进行字符集转换，因此可能会稍微降低一些查询性能。但是，这种性能下降通常是可以忽略不计的。在实际使用中，我们可以先尝试使用 <code class="language-plaintext highlighter-rouge">COLLATE</code>关键字，如果查询性能不足，再考虑使用其他优化策略。</p>
 
-&lt;p&gt;在使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BINARY&lt;/code&gt;运算符时，由于不需要进行字符集转换，因此查询性能通常比使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COLLATE&lt;/code&gt;关键字要高一些。但是，这种性能优势也是非常小的，通常不会对查询性能产生重大影响。&lt;/p&gt;
+<p>在使用 <code class="language-plaintext highlighter-rouge">BINARY</code>运算符时，由于不需要进行字符集转换，因此查询性能通常比使用 <code class="language-plaintext highlighter-rouge">COLLATE</code>关键字要高一些。但是，这种性能优势也是非常小的，通常不会对查询性能产生重大影响。</p>
 
-&lt;p&gt;因此，在实际使用中，我们可以根据具体情况选择使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COLLATE&lt;/code&gt; 关键字还是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BINARY&lt;/code&gt; 运算符。如果查询量较大，建议使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BINARY&lt;/code&gt; 运算符。如果查询量较小，可以使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COLLATE&lt;/code&gt; 关键字进行查询。&lt;/p&gt;
+<p>因此，在实际使用中，我们可以根据具体情况选择使用 <code class="language-plaintext highlighter-rouge">COLLATE</code> 关键字还是 <code class="language-plaintext highlighter-rouge">BINARY</code> 运算符。如果查询量较大，建议使用 <code class="language-plaintext highlighter-rouge">BINARY</code> 运算符。如果查询量较小，可以使用 <code class="language-plaintext highlighter-rouge">COLLATE</code> 关键字进行查询。</p>
 
-&lt;ol&gt;
-  &lt;li&gt;创建表时指定字符集&lt;/li&gt;
-&lt;/ol&gt;
+<ol>
+  <li>创建表时指定字符集</li>
+</ol>
 
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;column_name&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;CHARACTER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SET&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8mb4&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COLLATE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utf8mb4_bin&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">table_name</span> <span class="p">(</span>
+    <span class="k">column_name</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">utf8mb4</span> <span class="k">COLLATE</span> <span class="n">utf8mb4_bin</span>
+<span class="p">);</span>
+</code></pre></div></div>
 
-&lt;p&gt;将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;column_name&lt;/code&gt; 列的字符集设置为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utf8mb4&lt;/code&gt;，使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utf8mb4_bin&lt;/code&gt; 作为排序规则，以便在查询时进行区分大小写。&lt;/p&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">最近在使用 MySQL 数据库时遇到了一个问题，就是在进行查询时，MySQL 并不会区分查询条件中的大小写。</summary></entry><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00%20%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">&lt;p&gt;MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。&lt;/p&gt;
+<p>将 <code class="language-plaintext highlighter-rouge">column_name</code> 列的字符集设置为 <code class="language-plaintext highlighter-rouge">utf8mb4</code>，使用 <code class="language-plaintext highlighter-rouge">utf8mb4_bin</code> 作为排序规则，以便在查询时进行区分大小写。</p>]]></content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html"><![CDATA[MySQL 查询不区分大小写]]></summary></entry><entry><title type="html">MySQL-00-基础架构</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/" rel="alternate" type="text/html" title="MySQL-00-基础架构" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00%20%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-00-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/"><![CDATA[<p>MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。</p>
 
-&lt;h2 id=&quot;连接器&quot;&gt;连接器&lt;/h2&gt;
-&lt;p&gt;连接器负责跟客户端建立连接、获取权限、维持和管理连接。
-查看连接：&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;SHOW PROCESSLIST
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;![[images/post/190DC58A-F184-4DF8-8911-9E9F3553B59D_4_5005_c.jpeg]]
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sleep&lt;/code&gt; 表示空闲连接，默认8小时自动断开，通过参数wait_timeout控制。&lt;/p&gt;
+<h2 id="连接器">连接器</h2>
+<p>连接器负责跟客户端建立连接、获取权限、维持和管理连接。
+查看连接：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SHOW PROCESSLIST
+</code></pre></div></div>
+<p>![[images/post/190DC58A-F184-4DF8-8911-9E9F3553B59D_4_5005_c.jpeg]]
+<code class="language-plaintext highlighter-rouge">Sleep</code> 表示空闲连接，默认8小时自动断开，通过参数wait_timeout控制。</p>
 
-&lt;h3 id=&quot;长连接&quot;&gt;长连接&lt;/h3&gt;
-&lt;p&gt;长连接是指连接成功后，如果客户端持续有请求，则一直使用同一个连接。
-&lt;strong&gt;MySQL在执行过程中，临时使用的内存是管理在连接对象里面的，这些资源会在连接断开的时候才会释放。&lt;/strong&gt;
+<h3 id="长连接">长连接</h3>
+<p>长连接是指连接成功后，如果客户端持续有请求，则一直使用同一个连接。
+<strong>MySQL在执行过程中，临时使用的内存是管理在连接对象里面的，这些资源会在连接断开的时候才会释放。</strong>
 所以长连接累积下来，可能导致内存占用太大，被系统强行杀掉（OOM），会导致MySQL异常重启。
-解决方案：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;定期关闭长连接。使用一段时间之后，获者程序里面判断执行过一个占用内存的大查询后，断开连接，之后查询再重连。&lt;/li&gt;
-  &lt;li&gt;每次执行一个比较大的操作后，通过执行mysql_reset_connection来重新初始化连接资源。这个过程不需要重连和重新做权限验证，但是回不将连接恢复到刚刚创建完时的状态。&lt;/li&gt;
-&lt;/ol&gt;
+解决方案：</p>
+<ol>
+  <li>定期关闭长连接。使用一段时间之后，获者程序里面判断执行过一个占用内存的大查询后，断开连接，之后查询再重连。</li>
+  <li>每次执行一个比较大的操作后，通过执行mysql_reset_connection来重新初始化连接资源。这个过程不需要重连和重新做权限验证，但是回不将连接恢复到刚刚创建完时的状态。</li>
+</ol>
 
-&lt;h2 id=&quot;分析器&quot;&gt;分析器&lt;/h2&gt;
-&lt;p&gt;词法分析和语法分析。&lt;/p&gt;
+<h2 id="分析器">分析器</h2>
+<p>词法分析和语法分析。</p>
 
-&lt;h2 id=&quot;优化器&quot;&gt;优化器&lt;/h2&gt;
-&lt;p&gt;索引优化和多表关联优化。&lt;/p&gt;
+<h2 id="优化器">优化器</h2>
+<p>索引优化和多表关联优化。</p>
 
-&lt;h2 id=&quot;执行器&quot;&gt;执行器&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;判断是否有表的权限&lt;/li&gt;
-  &lt;li&gt;调用存储引擎接口&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">MySQL 分为Server层和存储层。Server层包括连接器、查询缓存、分析器、优化器和执行器。</summary></entry><entry><title type="html">MySQL-01-日志系统</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-01-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" rel="alternate" type="text/html" title="MySQL-01-日志系统" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-01%20%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-01-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/">&lt;ul&gt;
-  &lt;li&gt;redo log&lt;/li&gt;
-  &lt;li&gt;binlog&lt;/li&gt;
-&lt;/ul&gt;
+<h2 id="执行器">执行器</h2>
+<ol>
+  <li>判断是否有表的权限</li>
+  <li>调用存储引擎接口</li>
+</ol>]]></content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html"><![CDATA[MySQL 基础架构]]></summary></entry><entry><title type="html">MySQL-01-日志系统</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-01-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" rel="alternate" type="text/html" title="MySQL-01-日志系统" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-01%20%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-01-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/"><![CDATA[<ul>
+  <li>redo log</li>
+  <li>binlog</li>
+</ul>
 
-&lt;h2 id=&quot;重做日志redo-log&quot;&gt;重做日志：redo log&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;redo log&lt;/code&gt; 是InnoDB特有的日志。
+<h2 id="重做日志redo-log">重做日志：redo log</h2>
+<p><code class="language-plaintext highlighter-rouge">redo log</code> 是InnoDB特有的日志。
 WAL（Write-Ahead-Log）: 先写日志，再写磁盘。
 具体来说：
 当有一条记录需要更新的时候，InnoDB 引擎就会先把记录写到 redo log（粉板）里面，并更新内存，这个时候更新就算完成了。同时，InnoDB 引擎会在适当的时候，将这个操作记录更新到磁盘里面，而这个更新往往是在系统比较空闲的时候做。
 InnoDB 的 redo log 是固定大小的，比如可以配置为一组 4 个文件，每个文件的大小是 1GB，那么这块“粉板”总共就可以记录 4GB 的操作。从头开始写，写到末尾就又回到开头循环写，如下面这个图所示。
 ![[Pasted image 20230306153314.png]]
-有了 redo log，InnoDB 就可以保证即使数据库发生异常重启，之前提交的记录都不会丢失，这个能力称为 crash-safe。&lt;/p&gt;
+有了 redo log，InnoDB 就可以保证即使数据库发生异常重启，之前提交的记录都不会丢失，这个能力称为 crash-safe。</p>
 
-&lt;h2 id=&quot;归档日志-binlog&quot;&gt;归档日志： Binlog&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binlog&lt;/code&gt; 是MySQL Server层的日志。
-和&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;redo log&lt;/code&gt; 的不同之处在于：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;redo log 是 InnoDB 引擎特有的；binlog 是 MySQL 的 Server 层实现的，所有引擎都可以使用。&lt;/li&gt;
-  &lt;li&gt;redo log 是物理日志，记录的是“在某个数据页上做了什么修改”；binlog 是逻辑日志，记录的是这个语句的原始逻辑，比如“给 ID=2 这一行的 c 字段加 1 ”。&lt;/li&gt;
-  &lt;li&gt;redo log 是循环写的，空间固定会用完；binlog 是可以追加写入的。“追加写”是指 binlog 文件写到一定大小后会切换到下一个，并不会覆盖以前的日志。&lt;/li&gt;
-&lt;/ol&gt;
+<h2 id="归档日志-binlog">归档日志： Binlog</h2>
+<p><code class="language-plaintext highlighter-rouge">binlog</code> 是MySQL Server层的日志。
+和<code class="language-plaintext highlighter-rouge">redo log</code> 的不同之处在于：</p>
+<ol>
+  <li>redo log 是 InnoDB 引擎特有的；binlog 是 MySQL 的 Server 层实现的，所有引擎都可以使用。</li>
+  <li>redo log 是物理日志，记录的是“在某个数据页上做了什么修改”；binlog 是逻辑日志，记录的是这个语句的原始逻辑，比如“给 ID=2 这一行的 c 字段加 1 ”。</li>
+  <li>redo log 是循环写的，空间固定会用完；binlog 是可以追加写入的。“追加写”是指 binlog 文件写到一定大小后会切换到下一个，并不会覆盖以前的日志。</li>
+</ol>
 
-&lt;p&gt;例子：
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;update T set c=c+1 where ID=2;&lt;/code&gt;
-执行器和InnoDB在执行一个update语句时内部流程：&lt;/p&gt;
-&lt;div class=&quot;mermaid&quot;&gt;
+<p>例子：
+<code class="language-plaintext highlighter-rouge">update T set c=c+1 where ID=2;</code>
+执行器和InnoDB在执行一个update语句时内部流程：</p>
+<div class="mermaid">
 sequenceDiagram
-	执行器 -&amp;gt;&amp;gt; InnoDB: 取ID=2这一行
+	执行器 -&gt;&gt; InnoDB: 取ID=2这一行
 	alt 数据页不在内存中
-		InnoDB -&amp;gt;&amp;gt; 磁盘: 磁盘中读入内存
+		InnoDB -&gt;&gt; 磁盘: 磁盘中读入内存
 	else
-		InnoDB -&amp;gt;&amp;gt; 执行器: 返回行数据
+		InnoDB -&gt;&gt; 执行器: 返回行数据
 	end
-	执行器 -&amp;gt;&amp;gt; 执行器: 将这行的C值+1
-	执行器 -&amp;gt;&amp;gt; InnoDB: Write new value
-	InnoDB -&amp;gt;&amp;gt; InnoDB: Write to memory
-	InnoDB -&amp;gt;&amp;gt; 磁盘: Write redo log
+	执行器 -&gt;&gt; 执行器: 将这行的C值+1
+	执行器 -&gt;&gt; InnoDB: Write new value
+	InnoDB -&gt;&gt; InnoDB: Write to memory
+	InnoDB -&gt;&gt; 磁盘: Write redo log
 	Note over InnoDB: Prepare
-	InnoDB -&amp;gt;&amp;gt; 执行器: Done
-	执行器 -&amp;gt;&amp;gt; 磁盘: Write bin log
-	执行器 -&amp;gt;&amp;gt; InnoDB: Commit
+	InnoDB -&gt;&gt; 执行器: Done
+	执行器 -&gt;&gt; 磁盘: Write bin log
+	执行器 -&gt;&gt; InnoDB: Commit
 	Note over InnoDB: Committed
-&lt;/div&gt;
+</div>
 
-&lt;h2 id=&quot;两阶段提交&quot;&gt;两阶段提交&lt;/h2&gt;
-&lt;p&gt;由于 redo log 和 binlog 是两个独立的逻辑，如果不用两阶段提交，要么就是先写完 redo log 再写 binlog，或者采用反过来的顺序。我们看看这两种方式会有什么问题。 
-仍然用前面的 update 语句来做例子。假设当前 ID=2 的行，字段 c 的值是 0，再假设执行 update 语句过程中在写完第一个日志后，第二个日志还没有写完期间发生了 crash，会出现什么情况呢？&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;先写 redo log 后写 binlog。假设在 redo log 写完，binlog 还没有写完的时候，MySQL 进程异常重启。由于我们前面说过的，redo log 写完之后，系统即使崩溃，仍然能够把数据恢复回来，所以恢复后这一行 c 的值是 1。 但是由于 binlog 没写完就 crash 了，这时候 binlog 里面就没有记录这个语句。因此，之后备份日志的时候，存起来的 binlog 里面就没有这条语句。 然后你会发现，如果需要用这个 binlog 来恢复临时库的话，由于这个语句的 binlog 丢失，这个临时库就会少了这一次更新，恢复出来的这一行 c 的值就是 0，与原库的值不同。&lt;/li&gt;
-  &lt;li&gt;先写 binlog 后写 redo log。如果在 binlog 写完之后 crash，由于 redo log 还没写，崩溃恢复以后这个事务无效，所以这一行 c 的值是 0。但是 binlog 里面已经记录了“把 c 从 0 改成 1”这个日志。所以，在之后用 binlog 来恢复的时候就多了一个事务出来，恢复出来的这一行 c 的值就是 1，与原库的值不同。
-可以看到，如果不使用“两阶段提交”，那么数据库的状态就有可能和用它的日志恢复出来的库的状态不一致。 简单说，redo log 和 binlog 都可以用于表示事务的提交状态，而两阶段提交就是让这两个状态保持逻辑上的一致。&lt;/li&gt;
-&lt;/ol&gt;
+<h2 id="两阶段提交">两阶段提交</h2>
+<p>由于 redo log 和 binlog 是两个独立的逻辑，如果不用两阶段提交，要么就是先写完 redo log 再写 binlog，或者采用反过来的顺序。我们看看这两种方式会有什么问题。 
+仍然用前面的 update 语句来做例子。假设当前 ID=2 的行，字段 c 的值是 0，再假设执行 update 语句过程中在写完第一个日志后，第二个日志还没有写完期间发生了 crash，会出现什么情况呢？</p>
+<ol>
+  <li>先写 redo log 后写 binlog。假设在 redo log 写完，binlog 还没有写完的时候，MySQL 进程异常重启。由于我们前面说过的，redo log 写完之后，系统即使崩溃，仍然能够把数据恢复回来，所以恢复后这一行 c 的值是 1。 但是由于 binlog 没写完就 crash 了，这时候 binlog 里面就没有记录这个语句。因此，之后备份日志的时候，存起来的 binlog 里面就没有这条语句。 然后你会发现，如果需要用这个 binlog 来恢复临时库的话，由于这个语句的 binlog 丢失，这个临时库就会少了这一次更新，恢复出来的这一行 c 的值就是 0，与原库的值不同。</li>
+  <li>先写 binlog 后写 redo log。如果在 binlog 写完之后 crash，由于 redo log 还没写，崩溃恢复以后这个事务无效，所以这一行 c 的值是 0。但是 binlog 里面已经记录了“把 c 从 0 改成 1”这个日志。所以，在之后用 binlog 来恢复的时候就多了一个事务出来，恢复出来的这一行 c 的值就是 1，与原库的值不同。
+可以看到，如果不使用“两阶段提交”，那么数据库的状态就有可能和用它的日志恢复出来的库的状态不一致。 简单说，redo log 和 binlog 都可以用于表示事务的提交状态，而两阶段提交就是让这两个状态保持逻辑上的一致。</li>
+</ol>
 
-&lt;h2 id=&quot;引用&quot;&gt;引用&lt;/h2&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">redo log binlog</summary></entry><entry><title type="html">MySQL-02-事务隔离</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-02-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB/" rel="alternate" type="text/html" title="MySQL-02-事务隔离" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-02%20%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-02-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB/">&lt;h2 id=&quot;事务&quot;&gt;事务&lt;/h2&gt;
-&lt;p&gt;事务就是一组SQL语句，作为一个工作单元以原子方式进行处理。如果数据库引擎能够成功地对数据库应用整组语句，那么就执行该组语句。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么整组语句都不执行。也就是说，作为事务的一组语句，要么全部执行成功，要么全部执行失败。
-ACID代表原子性(atomicity)、一致性(consistency)、隔离性(isolation)和持久性(durability)&lt;/p&gt;
+<h2 id="引用">引用</h2>]]></content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html"><![CDATA[MySQL的日志系统]]></summary></entry><entry><title type="html">MySQL-02-事务隔离</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-02-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB/" rel="alternate" type="text/html" title="MySQL-02-事务隔离" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-02%20%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-02-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB/"><![CDATA[<h2 id="事务">事务</h2>
+<p>事务就是一组SQL语句，作为一个工作单元以原子方式进行处理。如果数据库引擎能够成功地对数据库应用整组语句，那么就执行该组语句。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么整组语句都不执行。也就是说，作为事务的一组语句，要么全部执行成功，要么全部执行失败。
+ACID代表原子性(atomicity)、一致性(consistency)、隔离性(isolation)和持久性(durability)</p>
 
-&lt;h2 id=&quot;隔离性和隔离级别&quot;&gt;隔离性和隔离级别&lt;/h2&gt;
-&lt;h4 id=&quot;隔离性&quot;&gt;隔离性&lt;/h4&gt;
-&lt;p&gt;通常来说，一个事务所做的修改在最终提交以前，对其他事务是不可见的，这就是隔离性带来的结果。在前面的例子中，当执行完第3条语句、第4条语句还未开始时，此时有另外一个账户汇总程序开始运行，其看到的支票账户的余额并没有被减去200美元。后面我们讨论隔离级别(isolation level)的时候，会发现为什么我们要说“通常来说”是不可见的。&lt;/p&gt;
+<h2 id="隔离性和隔离级别">隔离性和隔离级别</h2>
+<h4 id="隔离性">隔离性</h4>
+<p>通常来说，一个事务所做的修改在最终提交以前，对其他事务是不可见的，这就是隔离性带来的结果。在前面的例子中，当执行完第3条语句、第4条语句还未开始时，此时有另外一个账户汇总程序开始运行，其看到的支票账户的余额并没有被减去200美元。后面我们讨论隔离级别(isolation level)的时候，会发现为什么我们要说“通常来说”是不可见的。</p>
 
-&lt;h3 id=&quot;隔离级别&quot;&gt;隔离级别&lt;/h3&gt;
-&lt;p&gt;多个事务同时执行的时候，可能出现的问题：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;脏读&lt;/li&gt;
-  &lt;li&gt;不可重复读&lt;/li&gt;
-  &lt;li&gt;幻读
+<h3 id="隔离级别">隔离级别</h3>
+<p>多个事务同时执行的时候，可能出现的问题：</p>
+<ul>
+  <li>脏读</li>
+  <li>不可重复读</li>
+  <li>幻读
 为了解决这些问题，就有了“隔离级别”的概念。
-SQL标准的事务隔离级别有：&lt;/li&gt;
-  &lt;li&gt;读未提交（read uncommitted）
-  一个事务还没提交时，它的变更就能被别的事务看到。&lt;/li&gt;
-  &lt;li&gt;读提交（read committed）
+SQL标准的事务隔离级别有：</li>
+  <li>读未提交（read uncommitted）
+  一个事务还没提交时，它的变更就能被别的事务看到。</li>
+  <li>读提交（read committed）
   一个事务提交后，它的变更才会被其他事务看到。
-  这个级别仍然允许不可重复读(nonrepeatable read)，这意味着同一事务中两次执行相同语句，可能会看到不同的数据结果。&lt;/li&gt;
-  &lt;li&gt;可重复读（repeatable read）
-  一个事务执行过程中看到的数据，总是跟这个事务在启动时看到的数据是一致的。当然在可重复读隔离级别下，未提交变更对其他事务也是不可见的。&lt;/li&gt;
-  &lt;li&gt;串行化（serializable）
-  顾名思义是对于同一行记录，“写”会加“写锁”，“读”会加“读锁”。当出现读写锁冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">事务 事务就是一组SQL语句，作为一个工作单元以原子方式进行处理。如果数据库引擎能够成功地对数据库应用整组语句，那么就执行该组语句。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么整组语句都不执行。也就是说，作为事务的一组语句，要么全部执行成功，要么全部执行失败。 ACID代表原子性(atomicity)、一致性(consistency)、隔离性(isolation)和持久性(durability)</summary></entry><entry><title type="html">MySQL-03 索引</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/" rel="alternate" type="text/html" title="MySQL-03 索引" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03%20%E7%B4%A2%E5%BC%95</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/">&lt;h2 id=&quot;索引&quot;&gt;索引&lt;/h2&gt;
+  这个级别仍然允许不可重复读(nonrepeatable read)，这意味着同一事务中两次执行相同语句，可能会看到不同的数据结果。</li>
+  <li>可重复读（repeatable read）
+  一个事务执行过程中看到的数据，总是跟这个事务在启动时看到的数据是一致的。当然在可重复读隔离级别下，未提交变更对其他事务也是不可见的。</li>
+  <li>串行化（serializable）
+  顾名思义是对于同一行记录，“写”会加“写锁”，“读”会加“读锁”。当出现读写锁冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行。</li>
+</ul>]]></content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html"><![CDATA[MySQL 事务隔离以及隔离级别基础]]></summary></entry><entry><title type="html">MySQL-03 索引</title><link href="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/" rel="alternate" type="text/html" title="MySQL-03 索引" /><published>2023-03-12T00:00:00+08:00</published><updated>2023-03-12T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03%20%E7%B4%A2%E5%BC%95</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2023/03/12/MySQL-03-%E7%B4%A2%E5%BC%95/"><![CDATA[<h2 id="索引">索引</h2>
 
-&lt;blockquote&gt;
-  &lt;p&gt;提高数据查询的效率&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>提高数据查询的效率</p>
+</blockquote>
 
-&lt;p&gt;数据存储在磁盘上面，需要索引按某个key（搜索码）记录数据存储的位置，提高查询效率。&lt;/p&gt;
+<p>数据存储在磁盘上面，需要索引按某个key（搜索码）记录数据存储的位置，提高查询效率。</p>
 
-&lt;h3 id=&quot;索引常见模型&quot;&gt;索引常见模型&lt;/h3&gt;
+<h3 id="索引常见模型">索引常见模型</h3>
 
-&lt;p&gt;有两种基本的索引类型：&lt;/p&gt;
+<p>有两种基本的索引类型：</p>
 
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;顺序索引&lt;/p&gt;
+<ul>
+  <li>
+    <p>顺序索引</p>
 
-    &lt;p&gt;基于值的顺序排序。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;散列索引（hash）&lt;/p&gt;
+    <p>基于值的顺序排序。</p>
+  </li>
+  <li>
+    <p>散列索引（hash）</p>
 
-    &lt;p&gt;基于将值平均分布到若干散列桶中。一个值所属的散列桶是由一个函数决定的，该函数称为散列函数（hash function）&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+    <p>基于将值平均分布到若干散列桶中。一个值所属的散列桶是由一个函数决定的，该函数称为散列函数（hash function）</p>
+  </li>
+</ul>
 
-&lt;h3 id=&quot;指标&quot;&gt;指标&lt;/h3&gt;
+<h3 id="指标">指标</h3>
 
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;查询类型&lt;/p&gt;
+<ul>
+  <li>
+    <p>查询类型</p>
 
-    &lt;p&gt;能有效支持的访问类型。访问类型可以包括找到具体特定属性值的记录，以及找到属性值落在某个特定范围内的记录。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;查询时间&lt;/p&gt;
+    <p>能有效支持的访问类型。访问类型可以包括找到具体特定属性值的记录，以及找到属性值落在某个特定范围内的记录。</p>
+  </li>
+  <li>
+    <p>查询时间</p>
 
-    &lt;p&gt;查询一个特定数据项或数据项集所需的时间。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;写入时间&lt;/p&gt;
+    <p>查询一个特定数据项或数据项集所需的时间。</p>
+  </li>
+  <li>
+    <p>写入时间</p>
 
-    &lt;p&gt;插入一个新数据项所需的时间。该值包括找到待删除项所需的时间，以及更新索引结构所需的时间。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;删除时间&lt;/p&gt;
+    <p>插入一个新数据项所需的时间。该值包括找到待删除项所需的时间，以及更新索引结构所需的时间。</p>
+  </li>
+  <li>
+    <p>删除时间</p>
 
-    &lt;p&gt;删除一个数据项所需的时间。该值包括找到待删除项所需的时间，以及更新索引结构所需的时间。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;空间开销&lt;/p&gt;
+    <p>删除一个数据项所需的时间。该值包括找到待删除项所需的时间，以及更新索引结构所需的时间。</p>
+  </li>
+  <li>
+    <p>空间开销</p>
 
-    &lt;p&gt;索引结构所占用的额外存储空间。倘若存储索引结构的额外空间大小适度，通常牺牲一定的空间代价来换取性能的提高是值得的。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+    <p>索引结构所占用的额外存储空间。倘若存储索引结构的额外空间大小适度，通常牺牲一定的空间代价来换取性能的提高是值得的。</p>
+  </li>
+</ul>
 
-&lt;h3 id=&quot;顺序索引&quot;&gt;顺序索引&lt;/h3&gt;
+<h3 id="顺序索引">顺序索引</h3>
 
-&lt;p&gt;为了快速随机访问文件中的记录，可以使用索引结构。每个索引结构与一个特定的搜索码相关联。顺序索引按顺序存储搜索码的值，并将每个搜索码与包含该搜索码的记录关联起来。&lt;/p&gt;
+<p>为了快速随机访问文件中的记录，可以使用索引结构。每个索引结构与一个特定的搜索码相关联。顺序索引按顺序存储搜索码的值，并将每个搜索码与包含该搜索码的记录关联起来。</p>
 
-&lt;pre&gt;&lt;code class=&quot;language-mermaid&quot;&gt;graph LR
-    key1(1) --&amp;gt; record1(id:1 name: a)
-    key2(2) --&amp;gt; record2(id:2 name: b)
-    key3(3) --&amp;gt; record3(id:3 name: c)
-    record1 --&amp;gt; file
-    record2 --&amp;gt; file
-    record3 --&amp;gt; file
+<pre><code class="language-mermaid">graph LR
+    key1(1) --&gt; record1(id:1 name: a)
+    key2(2) --&gt; record2(id:2 name: b)
+    key3(3) --&gt; record3(id:3 name: c)
+    record1 --&gt; file
+    record2 --&gt; file
+    record3 --&gt; file
 
-&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
 
-&lt;p&gt;文件中的记录自身也可以按照某种排序顺序存储。一个文件可以有多个索引，分别基于不同的搜索码。&lt;/p&gt;
+<p>文件中的记录自身也可以按照某种排序顺序存储。一个文件可以有多个索引，分别基于不同的搜索码。</p>
 
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;聚簇索引（clustering index）(primary index)&lt;/p&gt;
+<ul>
+  <li>
+    <p>聚簇索引（clustering index）(primary index)</p>
 
-    &lt;p&gt;如果文件按照某个搜索码指定的顺序排序，那么该搜索码对应的索引称为聚簇索引。聚簇索引也称为主索引。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;非聚簇索引(non-clustering index)（二级索引）（secondary index）&lt;/p&gt;
+    <p>如果文件按照某个搜索码指定的顺序排序，那么该搜索码对应的索引称为聚簇索引。聚簇索引也称为主索引。</p>
+  </li>
+  <li>
+    <p>非聚簇索引(non-clustering index)（二级索引）（secondary index）</p>
 
-    &lt;p&gt;搜索码指定的顺序与文件中记录的物理顺序不同的索引称为非聚簇索引。也称为辅助索引。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;索引顺序文件&lt;/p&gt;
+    <p>搜索码指定的顺序与文件中记录的物理顺序不同的索引称为非聚簇索引。也称为辅助索引。</p>
+  </li>
+  <li>
+    <p>索引顺序文件</p>
 
-    &lt;p&gt;按照聚簇索引顺序排列的文件称为索引顺序文件。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+    <p>按照聚簇索引顺序排列的文件称为索引顺序文件。</p>
+  </li>
+</ul>
 
-&lt;h3 id=&quot;b树索引文件&quot;&gt;B+树索引文件&lt;/h3&gt;
-&lt;p&gt;// TODO&lt;/p&gt;
+<h3 id="b树索引文件">B+树索引文件</h3>
+<p>// TODO</p>
 
-&lt;h3 id=&quot;哈希表&quot;&gt;哈希表&lt;/h3&gt;
+<h3 id="哈希表">哈希表</h3>
 
-&lt;p&gt;//TODO&lt;/p&gt;
+<p>//TODO</p>
 
-&lt;h3 id=&quot;有序数组&quot;&gt;有序数组&lt;/h3&gt;
-&lt;p&gt;//TODO&lt;/p&gt;
-&lt;h3 id=&quot;搜索树&quot;&gt;搜索树&lt;/h3&gt;
-&lt;p&gt;//TODO&lt;/p&gt;</content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html">索引</summary></entry></feed>
+<h3 id="有序数组">有序数组</h3>
+<p>//TODO</p>
+<h3 id="搜索树">搜索树</h3>
+<p>//TODO</p>]]></content><author><name>车底下的猫</name></author><category term="MySQL" /><summary type="html"><![CDATA[MySQL 基础架构]]></summary></entry></feed>
