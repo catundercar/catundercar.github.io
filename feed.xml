@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2024-04-15T00:22:18+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">DGraph 全文检索</title><link href="https://catundercar.github.io/catundercar.github.io/2024/04/14/DGraph-%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" rel="alternate" type="text/html" title="DGraph 全文检索" /><published>2024-04-14T00:00:00+08:00</published><updated>2024-04-14T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2024/04/14/DGraph%20%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2024/04/14/DGraph-%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/"><![CDATA[<h1 id="使用">使用</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="https://catundercar.github.io/catundercar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://catundercar.github.io/catundercar.github.io/" rel="alternate" type="text/html" /><updated>2024-05-08T21:28:22+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/feed.xml</id><title type="html">travel</title><subtitle>工作、学习中的一些记录</subtitle><author><name>车底下的猫</name></author><entry><title type="html">DGraph 全文检索</title><link href="https://catundercar.github.io/catundercar.github.io/2024/04/14/DGraph-%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" rel="alternate" type="text/html" title="DGraph 全文检索" /><published>2024-04-14T00:00:00+08:00</published><updated>2024-04-14T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2024/04/14/DGraph%20%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2024/04/14/DGraph-%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/"><![CDATA[<h1 id="使用">使用</h1>
 
 <p>语法：<code class="language-plaintext highlighter-rouge">alloftext(predicate, "space-separated text")</code> and <code class="language-plaintext highlighter-rouge">anyoftext(predicate, "space-separated text")</code></p>
 
@@ -131,7 +131,40 @@
 
 <p><code class="language-plaintext highlighter-rouge">fulltextAnalyzer</code>代表一个bleve里面的分析器，它的功能为将字符串转换为小写并且使用Unicode 标准来分割文本。</p>
 
-<p><code class="language-plaintext highlighter-rouge">filterStemmers(lang, tokens)</code> 内部通过语言和<code class="language-plaintext highlighter-rouge">filter</code>类型的映射选择语言对应的<code class="language-plaintext highlighter-rouge">filter</code>进行词干分析。</p>]]></content><author><name>车底下的猫</name></author><category term="DGraph" /><summary type="html"><![CDATA[DGraph 全文检索介绍]]></summary></entry><entry><title type="html">MMKV 的交叉编译</title><link href="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" rel="alternate" type="text/html" title="MMKV 的交叉编译" /><published>2024-01-01T00:00:00+08:00</published><updated>2024-01-01T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV%20%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/"><![CDATA[<h2 id="背景">背景</h2>
+<p><code class="language-plaintext highlighter-rouge">filterStemmers(lang, tokens)</code> 内部通过语言和<code class="language-plaintext highlighter-rouge">filter</code>类型的映射选择语言对应的<code class="language-plaintext highlighter-rouge">filter</code>进行词干分析。</p>
+
+<h1 id="索引的存储">索引的存储</h1>
+
+<p><code class="language-plaintext highlighter-rouge">DGraph</code> 索引的存储结构与值一致，都是通过<code class="language-plaintext highlighter-rouge">PostingList</code> 数据结构存储。区别是key不同，数据的key为&lt;predicate, uid&gt;, 而索引的key为&lt;predicate, token&gt;。Token 即上文中介绍的通过分词器 Tokenizer处理谓词值生成的。</p>
+
+<div class="language-protobuf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">message</span> <span class="nc">PostingList</span> <span class="p">{</span>
+	<span class="n">UidPack</span> <span class="na">pack</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="k">repeated</span> <span class="n">Posting</span> <span class="na">postings</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+	<span class="kt">int64</span> <span class="na">commit_ts</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+	<span class="k">repeated</span> <span class="kt">uint64</span> <span class="na">splits</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>例子：</p>
+
+<p><img src="../images/post/DGraph/index.png" alt=" " /></p>
+
+<p>以NQuad: &lt;0xa&gt;  <key1> "running fast" . 为例，`key1`的`schema`类型为 `fulltext`，通过`fulltext` 分词器处理后，会生成两个`token`：</key1></p>
+
+<p>“run”, “fast”。</p>
+
+<p>根据这两个<code class="language-plaintext highlighter-rouge">token</code>，<code class="language-plaintext highlighter-rouge">dgraph</code>将其组织为两条边(<code class="language-plaintext highlighter-rouge">DirectedEdge</code>)：</p>
+
+<ul>
+  <li>
+    <p>&lt;key, run&gt; -&gt; [0xa]</p>
+  </li>
+  <li>
+    <p>&lt;key, fast&gt; -&gt; [0xa]</p>
+  </li>
+</ul>
+
+<p>这样，值”run fast” 的索引就转换为后端存储的KVs。</p>]]></content><author><name>车底下的猫</name></author><category term="DGraph" /><summary type="html"><![CDATA[DGraph 全文检索介绍]]></summary></entry><entry><title type="html">MMKV 的交叉编译</title><link href="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" rel="alternate" type="text/html" title="MMKV 的交叉编译" /><published>2024-01-01T00:00:00+08:00</published><updated>2024-01-01T00:00:00+08:00</updated><id>https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV%20%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91</id><content type="html" xml:base="https://catundercar.github.io/catundercar.github.io/2024/01/01/MMKV-%E7%9A%84%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/"><![CDATA[<h2 id="背景">背景</h2>
 <p>参考官方文档：
 <a href="https://github.com/Tencent/MMKV/wiki/golang_setup">golang_setup · Tencent/MMKV Wiki (github.com)</a>
 在 <code class="language-plaintext highlighter-rouge">amd64</code> host 环境上交叉编译<code class="language-plaintext highlighter-rouge">aarch64</code>架构时出现以下的问题：</p>
