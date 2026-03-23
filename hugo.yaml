@@ -47,12 +47,12 @@ params:
     - name: "Building Effective Agents"
       icon: "🤖"
       desc: "12 週工程實踐課程，從零構建類似 Claude Code 的 AI 編程助手"
-      url: "https://github.com/catundercar/building-effective-agents"
+      url: "https://catundercar.github.io/building-effective-agents/"
       tags: ["AI Agent", "Claude Code", "Anthropic"]
     - name: "LLM From Scratch"
       icon: "🧠"
       desc: "動手構建大語言模型，從 Tokenizer 到 Mixture of Experts"
-      url: "https://github.com/catundercar/llm-from-scratch"
+      url: "https://catundercar.github.io/llm-from-scratch/"
       tags: ["LLM", "PyTorch", "Transformer"]
     - name: "Course Builder Plugin"
       icon: "🏗️"
@@ -85,6 +85,9 @@ params:
 
   assets:
     favicon: /favicon.ico
+    favicon16x16: /favicon-16x16.png
+    favicon32x32: /favicon-32x32.png
+    apple_touch_icon: /apple-touch-icon.png
 
 menu:
   main:
