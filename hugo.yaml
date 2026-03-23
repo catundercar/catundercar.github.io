@@ -41,7 +41,26 @@ params:
 
   homeInfoParams:
     Title: "道阻且长，行则将至"
-    Content: "工作、学习中的一些记录"
+    Content: >-
+      工作、学习中的一些记录
+
+
+      ---
+
+
+      **🚀 Projects**
+
+
+      [**Building Effective Agents**](https://github.com/catundercar/building-effective-agents)
+      — 12 週工程實踐課程，從零構建類似 Claude Code 的 AI 編程助手。基於 Anthropic「Building Effective Agents」設計哲學，從 LLM API 到完整 CLI Agent。
+
+
+      [**LLM From Scratch**](https://github.com/catundercar/llm-from-scratch)
+      — 動手構建大語言模型，從 Tokenizer 到 Mixture of Experts，涵蓋 Attention、Pre-training、LoRA、Instruction Tuning 等 10 個階段。
+
+
+      [**Course Builder Plugin**](https://github.com/catundercar/course-builder-plugin)
+      — Claude Code 插件，自動生成完整的工程實踐課程：課程大綱、Lab 腳手架代碼、測試套件、自動評分腳本、互動式課程網站。支持任意工程主題。
 
   socialIcons:
     - name: github
