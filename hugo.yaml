@@ -1,5 +1,6 @@
 baseURL: https://catundercar.github.io/
 languageCode: zh-cn
+defaultContentLanguage: zh
 title: travel
 theme: PaperMod
 
