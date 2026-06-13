@@ -1,0 +1,62 @@
+<svg width="100%" viewBox="0 0 680 430" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>mmkv-go 写入 / 读取分离架构</title>
+  <desc>官方 cgo 绑定负责写入，纯 Go 的 mmkv-go 负责读取，两侧共享磁盘上的 mmap 文件。</desc>
+  <style>
+    text{font-family:"Anthropic Sans",-apple-system,"Segoe UI","Noto Sans CJK SC",sans-serif;}
+    .ttl{fill:#1d1c1a;font-size:15px;font-weight:600;}
+    .h{font-size:13px;font-weight:600;}
+    .b{fill:#1d1c1a;font-size:12px;}
+    .m{fill:#6b6960;font-size:11px;}
+    .w{fill:#185FA5;} .r{fill:#0F6E56;} .dk{fill:#7a6a3a;}
+    .card{fill:#faf9f5;stroke:#cfcdc4;stroke-width:0.5;}
+    .wcard{fill:#eaf2fb;stroke:#185FA5;stroke-width:0.5;}
+    .rcard{fill:#e7f3ee;stroke:#0F6E56;stroke-width:0.5;}
+    .dcard{fill:#f5f1e3;stroke:#9a6b1f;stroke-width:0.5;}
+    .ln{stroke:#6b6960;stroke-width:1.4;fill:none;}
+    @media (prefers-color-scheme: dark){
+      .ttl{fill:#faf9f5;} .b{fill:#faf9f5;} .m{fill:#a7a59c;}
+      .w{fill:#7db4e6;} .r{fill:#5cc79f;} .dk{fill:#d8c486;}
+      .card{fill:#2a2825;stroke:#3a3833;}
+      .wcard{fill:#16314a;stroke:#7db4e6;}
+      .rcard{fill:#123a2c;stroke:#5cc79f;}
+      .dcard{fill:#332e1d;stroke:#d8c486;}
+      .ln{stroke:#a7a59c;}
+    }
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text x="340" y="30" text-anchor="middle" class="ttl">写入 / 读取分离架构</text>
+
+  <rect x="28" y="78" width="190" height="150" rx="10" class="wcard"/>
+  <text x="44" y="104" class="h w">写入侧 · 官方 cgo 绑定</text>
+  <text x="44" y="130" class="b">mmap 管理 · flock 加锁</text>
+  <text x="44" y="152" class="b">protobuf 序列化</text>
+  <text x="44" y="174" class="b">CRC 维护</text>
+  <text x="44" y="204" class="m">与官方行为 100% 兼容</text>
+
+  <rect x="262" y="74" width="156" height="72" rx="9" class="dcard"/>
+  <text x="340" y="100" text-anchor="middle" class="h dk">.kv 数据文件</text>
+  <text x="340" y="122" text-anchor="middle" class="m">mmap · protobuf 记录</text>
+  <rect x="262" y="160" width="156" height="72" rx="9" class="dcard"/>
+  <text x="340" y="186" text-anchor="middle" class="h dk">.crc 元数据</text>
+  <text x="340" y="208" text-anchor="middle" class="m">crcDigest / size / seq</text>
+
+  <rect x="474" y="66" width="180" height="48" rx="9" class="rcard"/>
+  <rect x="463" y="83" width="183" height="50" rx="9" class="rcard"/>
+  <rect x="452" y="100" width="192" height="58" rx="9" class="rcard"/>
+  <text x="466" y="124" class="h r">读取侧 · mmkv-go (纯 Go)</text>
+  <text x="466" y="144" class="m">parse-once → 无锁 snapshot</text>
+
+  <path d="M218 152 H256" class="ln" marker-end="url(#ar)"/>
+  <text x="237" y="142" text-anchor="middle" class="m">写</text>
+  <path d="M422 120 H450" class="ln" marker-end="url(#ar)"/>
+  <text x="436" y="110" text-anchor="middle" class="m">读</text>
+
+  <rect x="28" y="262" width="624" height="58" rx="10" class="card"/>
+  <text x="44" y="288" class="b">一次解析成本被大量读取均摊；reader 进程无需 C 工具链即可部署。</text>
+  <text x="44" y="308" class="m">拓扑：single-writer（cgo / MMKV_MULTI_PROCESS）+ multi-reader（纯 Go），check-on-read 自动感知更新。</text>
+</svg>
