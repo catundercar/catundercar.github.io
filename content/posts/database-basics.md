@@ -1,5 +1,5 @@
 ---
-title: "同样叫数据库，骨架完全不同"
+title: "DCIM 数据库选型设计"
 date: 2026-07-26
 categories: [数据库, 系统设计]
 keywords: [MySQL, PostgreSQL, ClickHouse, 时序数据, MergeTree, MVCC, B+树]
