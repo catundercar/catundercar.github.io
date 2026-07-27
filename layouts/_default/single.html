@@ -29,6 +29,8 @@
           {{- end }}
           {{- if .Param "ShowReadingTime" }}<span>{{ .ReadingTime }} min</span>{{ end }}
           {{- if .Param "ShowWordCount" }}<span>{{ .WordCount }} 字</span>{{ end }}
+          {{- /* 本篇阅读量。Vercount 按 URL 计数，脚本在 extend_footer.html 全站加载。 */ -}}
+          {{- with site.Params.vercount }}{{ if .enable }}<span><span id="vercount_value_page_pv">···</span> 次阅读</span>{{ end }}{{ end }}
           {{- partial "edit_post.html" . -}}
         </div>
         {{- end }}
