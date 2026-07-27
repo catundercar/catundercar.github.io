@@ -50,6 +50,27 @@ params:
     Title: "道阻且长，行则将至"
     Content: "工作、学习中的一些记录"
 
+  # 首页精选分类：白名单机制，只有列在这里的分类才会出现在首页筛选条上。
+  #   name  —— 必须与文章 front matter 里的 categories 值一字不差，它是查 taxonomy 的键
+  #   label —— 筛选按钮上显示的文字，可以和 name 不同
+  # 写错 name 会在 hugo 构建时打 WARN，不会静默消失。
+  # showOthers: true 时，未列入白名单但有文章的分类会汇总成一个「其他」按钮。
+  featuredCategoriesTitle: "Topics"
+  featuredCategoriesShowOthers: true
+  featuredCategories:
+    - name: "系统设计"
+      label: "Design"
+    - name: "Go"
+      label: "Go"
+    - name: "MySQL"
+      label: "MySQL"
+    - name: "Anthropic"
+      label: "AI / Agent"
+    - name: "DGraph"
+      label: "存储与检索"
+    - name: "数据库"
+      label: "数据库"
+
   projects:
     - name: "Building Effective Agents"
       icon: "🤖"

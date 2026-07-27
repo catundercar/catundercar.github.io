@@ -1,0 +1,136 @@
+{{- define "main" }}
+
+{{/* ---------------- Hero ---------------- */}}
+{{- with site.Params.homeInfoParams }}
+<div class="ck-hero">
+    <h1 class="ck-hero-title">{{ .Title | markdownify }}</h1>
+    <p class="ck-hero-sub">{{ .Content | markdownify }}</p>
+    {{ partial "social_icons.html" (dict "align" .AlignSocialIconsTo) }}
+</div>
+{{- end }}
+
+{{/* ---------------- Featured: Projects ---------------- */}}
+{{- with site.Params.projects }}
+<div class="ck-featured">
+    {{- range . }}
+    <a class="ck-fcard" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+        <span class="ck-fcard-icon">{{ .icon }}</span>
+        <span class="ck-fcard-name">{{ .name }}</span>
+        <span class="ck-fcard-desc">{{ .desc }}</span>
+    </a>
+    {{- end }}
+</div>
+{{- end }}
+
+{{/* ---------------- All posts + category filter ---------------- */}}
+{{- $posts := where site.RegularPages "Type" "in" (default (slice "posts") site.Params.mainSections) }}
+{{- $posts = where $posts "Params.hiddenInHomeList" "!=" true }}
+
+{{/* 白名单：只有 hugo.yaml featuredCategories 里列出的分类才会有筛选按钮 */}}
+{{- $chips := slice }}
+{{- $picked := slice }}
+{{- $allCats := slice }}
+{{- range $name, $taxo := site.Taxonomies.categories }}{{ $allCats = $allCats | append (printf "%s(%d)" $name (len $taxo)) }}{{ end }}
+{{- range site.Params.featuredCategories }}
+    {{- $cfg := . }}
+    {{- $key := urlize $cfg.name }}
+    {{- $wp := index site.Taxonomies.categories $key }}
+    {{- if not $wp }}{{ $wp = index site.Taxonomies.categories (lower $cfg.name) }}{{ end }}
+    {{- if not $wp }}{{ $wp = index site.Taxonomies.categories $cfg.name }}{{ end }}
+    {{- with $wp }}
+        {{- $picked = $picked | append $key }}
+        {{- $chips = $chips | append (dict "key" $key "label" (default $cfg.name $cfg.label) "count" (len .)) }}
+    {{- else }}
+        {{- warnf "featuredCategories: %q 没匹配到任何文章，已跳过。name 要和 front matter 里的 categories 一致，站点现有分类：%s" $cfg.name (delimit $allCats "、") }}
+    {{- end }}
+{{- end }}
+
+{{- $otherCount := 0 }}
+{{- range $name, $taxo := site.Taxonomies.categories }}
+    {{- if not (in $picked (urlize $name)) }}{{ $otherCount = add $otherCount (len $taxo) }}{{ end }}
+{{- end }}
+{{- if and site.Params.featuredCategoriesShowOthers (gt $otherCount 0) }}
+    {{- $chips = $chips | append (dict "key" "__other" "label" "其他" "count" $otherCount) }}
+{{- end }}
+
+<section class="ck-all">
+    <div class="ck-all-head">
+        <h2 class="ck-all-title">{{ default "全部文章" site.Params.allPostsTitle }}</h2>
+        <span class="ck-all-count" id="ck-count">{{ len $posts }} 篇</span>
+    </div>
+
+    {{- if $chips }}
+    <div class="ck-chips" role="tablist" aria-label="按分类筛选">
+        <button type="button" class="ck-chip is-active" data-cat="__all" aria-pressed="true">全部</button>
+        {{- range $chips }}
+        <button type="button" class="ck-chip" data-cat="{{ .key }}" aria-pressed="false">{{ .label }}<span class="ck-chip-n">{{ .count }}</span></button>
+        {{- end }}
+    </div>
+    {{- end }}
+
+    <div class="ck-list" id="ck-list">
+        {{- range $posts.ByDate.Reverse }}
+        {{- $keys := slice }}
+        {{- range .Params.categories }}
+            {{- $k := urlize . }}
+            {{- $keys = $keys | append (cond (in $picked $k) $k "__other") }}
+        {{- end }}
+        {{- if not $keys }}{{ $keys = slice "__other" }}{{ end }}
+        <a class="ck-row" href="{{ .RelPermalink }}" data-cats="{{ delimit (uniq $keys) " " }}">
+            <span class="ck-row-title">{{ .Title }}</span>
+            <span class="ck-row-meta">
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01" }}</time>
+                {{- range .Params.categories }}<span class="ck-row-cat">{{ . }}</span>{{ end }}
+                {{- if site.Params.ShowReadingTime }}<span class="ck-row-rt">{{ .ReadingTime }} min</span>{{ end }}
+            </span>
+            {{- with .Description }}<span class="ck-row-desc">{{ . }}</span>{{ end }}
+        </a>
+        {{- end }}
+    </div>
+
+    <p class="ck-empty" id="ck-empty" hidden>这个分类下还没有文章。</p>
+</section>
+
+<script>
+(function () {
+  var list = document.getElementById('ck-list');
+  if (!list) return;
+  var rows = Array.prototype.slice.call(list.querySelectorAll('.ck-row'));
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.ck-chip'));
+  var countEl = document.getElementById('ck-count');
+  var emptyEl = document.getElementById('ck-empty');
+
+  function apply(cat) {
+    var n = 0;
+    rows.forEach(function (r) {
+      var hit = cat === '__all' || (' ' + r.dataset.cats + ' ').indexOf(' ' + cat + ' ') > -1;
+      r.hidden = !hit;
+      if (hit) n++;
+    });
+    if (countEl) countEl.textContent = n + ' 篇';
+    if (emptyEl) emptyEl.hidden = n > 0;
+    if (history.replaceState) {
+      history.replaceState(null, '', cat === '__all' ? location.pathname : location.pathname + '#c=' + cat);
+    }
+  }
+
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      chips.forEach(function (x) {
+        var on = x === c;
+        x.classList.toggle('is-active', on);
+        x.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      apply(c.dataset.cat);
+    });
+  });
+
+  var m = location.hash.match(/^#c=(.+)$/);
+  if (m) {
+    var target = chips.filter(function (x) { return x.dataset.cat === decodeURIComponent(m[1]); })[0];
+    if (target) target.click();
+  }
+})();
+</script>
+
+{{- end }}
