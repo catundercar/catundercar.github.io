@@ -278,6 +278,18 @@
 }
 
 .pn-body p { margin: 11px 0; }
+
+/* 章节导语。markdown 里写在正文的下一行：`{.lead}` 单独占一行，
+   Goldmark 的块属性只认这个位置，跟在句末会被当成字面文本输出。
+   字号与字重取正文（15.5px/350）和 hero 摘要（17px/300）之间。 */
+.pn-body .lead {
+    font-size: 16.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--ink-2);
+    margin: 14px 0 20px;
+}
+
 .pn-body ul, .pn-body ol { padding-left: 20px; margin: 10px 0; }
 .pn-body li { margin: 5px 0; }
 .pn-body a { color: var(--copper); }
