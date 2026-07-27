@@ -1,0 +1,13 @@
+{{- /* Footer custom content area start */ -}}
+
+{{- /* Vercount 访问统计（不蒜子 busuanzi 的兼容替代，免注册）。
+       脚本刻意在【全站】加载，而不是只在首页：计数是脚本加载时打点的，
+       只在首页挂脚本的话 site_pv/site_uv 就只统计得到首页的访问量。
+       数字的展示位置在 layouts/index.html 的 hero 里。 */ -}}
+{{- with site.Params.vercount }}
+{{- if .enable }}
+<script defer src="{{ default "https://events.vercount.one/js" .script }}"></script>
+{{- end }}
+{{- end }}
+
+{{- /* Footer custom content area end */ -}}

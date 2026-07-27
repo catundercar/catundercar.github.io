@@ -6,6 +6,17 @@
     <h1 class="ck-hero-title">{{ .Title | markdownify }}</h1>
     <p class="ck-hero-sub">{{ .Content | markdownify }}</p>
     {{ partial "social_icons.html" (dict "align" .AlignSocialIconsTo) }}
+    {{- /* 访问量统计。span 的 id 由 Vercount 脚本填数字，脚本本身在 extend_footer.html 全站加载。
+           占位符 ··· 在脚本没加载出来时会一直留着，不会显示成 0。 */ -}}
+    {{- with site.Params.vercount }}
+    {{- if .enable }}
+    <p class="ck-hero-stats">
+        <span>总访问 <span class="ck-stat-n" id="vercount_value_site_pv">···</span></span>
+        <span class="ck-stat-sep">·</span>
+        <span>访客 <span class="ck-stat-n" id="vercount_value_site_uv">···</span></span>
+    </p>
+    {{- end }}
+    {{- end }}
 </div>
 {{- end }}
 

@@ -111,6 +111,13 @@ params:
     lang: zh-CN
     loading: lazy
 
+  # 访问量统计：Vercount（https://vercount.one），不蒜子的兼容替代品，免注册、免费。
+  # 脚本在 layouts/partials/extend_footer.html 全站加载，数字展示在首页 hero。
+  # script 留空则用默认端点；官方换域名时改这里即可。
+  vercount:
+    enable: true
+    script: "https://events.vercount.one/js"
+
   assets:
     favicon: /favicon.ico
     favicon16x16: /favicon-16x16.png
