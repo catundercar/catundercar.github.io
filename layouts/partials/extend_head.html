@@ -1,0 +1,8 @@
+{{- /* Panel style 用到的西文字体。正文 CJK 走系统字体（PingFang SC / 微软雅黑），
+       不加载 Noto Sans SC，避免几 MB 的中文 webfont。 */ -}}
+{{- if eq .Kind "page" }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+{{- end }}

@@ -1,0 +1,11 @@
+{{- if .AlertType }}
+{{- $map := dict "note" "note" "tip" "note" "warning" "warning" "caution" "warning" "important" "warning" "danger" "warning" }}
+{{- $cls := index $map .AlertType | default "note" }}
+{{- $titles := dict "note" "提示" "tip" "提示" "warning" "注意" "caution" "警告" "important" "重要" "danger" "危险" }}
+<div class="adm {{ $cls }}">
+  <span class="lbl">{{ with .AlertTitle }}{{ . }}{{ else }}{{ index $titles .AlertType | default .AlertType }}{{ end }}</span>
+  {{ .Text }}
+</div>
+{{- else }}
+<blockquote>{{ .Text }}</blockquote>
+{{- end }}

@@ -1,0 +1,100 @@
+{{- define "main" }}
+
+<div class="pn-prog" aria-hidden="true"><i id="pn-pg"></i></div>
+
+<article class="post-single pn"{{ with .Params.accent }} data-accent="{{ . }}"{{ end }}>
+  <div class="pn-wrap">
+
+    {{- if (.Param "ShowToc") }}
+    <nav class="pn-toc" id="pn-toc" aria-label="{{ i18n "toc" | default "目录" }}">
+      <h4>目录</h4>
+      {{ .TableOfContents }}
+    </nav>
+    {{- end }}
+
+    <div class="pn-main">
+
+      <header class="pn-hero">
+        <div class="pn-eyebrow">
+          {{- with .Params.eyebrow }}{{ . }}
+          {{- else with .Params.categories }}{{ delimit . " / " }}
+          {{- else }}{{ .Section | default .Type }}{{ end -}}
+        </div>
+        <h1 class="pn-title">{{ .Title }}</h1>
+        {{- with .Description }}<p class="pn-sub">{{ . }}</p>{{ end }}
+        {{- if not (.Param "hideMeta") }}
+        <div class="pn-meta">
+          {{- if not .Date.IsZero }}
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (site.Params.DateFormat | default "2006-01-02") }}</time>
+          {{- end }}
+          {{- if .Param "ShowReadingTime" }}<span>{{ .ReadingTime }} min</span>{{ end }}
+          {{- if .Param "ShowWordCount" }}<span>{{ .WordCount }} 字</span>{{ end }}
+          {{- partial "edit_post.html" . -}}
+        </div>
+        {{- end }}
+        <div class="pn-phase" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </header>
+
+      {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
+      {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
+
+      {{- if .Content }}
+      <div class="post-content pn-body">
+        {{- if not (.Param "disableAnchoredHeadings") }}
+        {{- partial "anchored_headings.html" .Content -}}
+        {{- else }}{{ .Content }}{{ end }}
+      </div>
+      {{- end }}
+
+      <footer class="post-footer pn-footer">
+        {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+        <ul class="post-tags">
+          {{- range ($.GetTerms $tags) }}
+          <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+          {{- end }}
+        </ul>
+        {{- if (.Param "ShowPostNavLinks") }}
+        {{- partial "post_nav_links.html" . }}
+        {{- end }}
+        {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
+        {{- partial "share_icons.html" . -}}
+        {{- end }}
+      </footer>
+
+      {{- if (.Param "comments") }}
+      {{- partial "comments.html" . }}
+      {{- end }}
+
+    </div>
+  </div>
+</article>
+
+<script>
+(function () {
+  var toc = document.getElementById('pn-toc');
+  var pg = document.getElementById('pn-pg');
+  var links = toc ? [].slice.call(toc.querySelectorAll('a[href^="#"]')) : [];
+  var secs = links.map(function (a) {
+    try { return document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1))); }
+    catch (e) { return null; }
+  });
+
+  function upd() {
+    if (links.length) {
+      var y = window.scrollY + 130, cur = -1;
+      secs.forEach(function (s, i) { if (s && s.offsetTop <= y) cur = i; });
+      links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+    }
+    if (pg) {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      pg.style.width = (h > 0 ? Math.min(100, Math.max(0, window.scrollY / h * 100)) : 0) + '%';
+    }
+  }
+
+  window.addEventListener('scroll', upd, { passive: true });
+  window.addEventListener('resize', upd);
+  upd();
+})();
+</script>
+
+{{- end }}{{/* end main */}}
